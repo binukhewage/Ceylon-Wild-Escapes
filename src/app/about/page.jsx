@@ -48,7 +48,7 @@ const About = () => {
       name: "Roshan Peiris",
       role: "Lead Photographer & Founder",
       bio: "Since 2019, my passion for capturing Sri Lanka's untamed beauty has grown into a full-time pursuit. After dedicating myself entirely to wildlife photography in 2024, I now guide wildlife photo safaris to share the magical experience of nature with enthusiasts.",
-      image: "/images/roshan.jpg", // Ensure this path is correct
+      image: "/images/roshan.JPG", // Ensure this path is correct
       social: {
         instagram: "https://instagram.com/roshan",
         facebook: "https://facebook.com/roshan",
