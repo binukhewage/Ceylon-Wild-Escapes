@@ -53,7 +53,7 @@ const Home = () => {
   const slides = [
     {
       id: 1,
-      src: "/videos/homevideo.mp4",
+      src: "/videos/cwclp.mp4",
       alt: "Sri Lankan leopard in the wild",
     },
   ];
