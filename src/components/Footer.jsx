@@ -140,6 +140,10 @@ const Footer = () => {
            <p className="font-montserrat text-[10px] text-gray-600 uppercase tracking-widest">
             © {new Date().getFullYear()} Ceylon Wild Escapes.
           </p>
+
+          <Link href="https://rubion-chi.vercel.app/" className="font-montserrat text-[10px] text-gray-600 hover:text-white uppercase tracking-widest transition-colors">
+                Website by RUBION
+          </Link>
            
            <div className="flex gap-6 mt-4 md:mt-0 relative z-10">
               <Link href="/privacy" className="font-montserrat text-[10px] text-gray-600 hover:text-white uppercase tracking-widest transition-colors">
