@@ -1,18 +1,18 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import {
   FaMapMarkerAlt,
-  FaUsers,
-  FaChevronRight,
+  FaArrowRight,
   FaClock,
-  FaHotel,
-  FaSafari,
-  FaStar,
-  FaSlidersH,
-  FaCheck,
+  FaQuoteRight,
 } from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
-import { Bebas_Neue, Lora, Montserrat, Kolker_Brush } from "next/font/google";
+import { motion } from "framer-motion";
+import {
+  Bebas_Neue,
+  Lora,
+  Montserrat,
+  Cormorant_Garamond,
+} from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { tours } from "../../data/tours.js";
@@ -23,209 +23,131 @@ const bebas = Bebas_Neue({
   weight: "400",
   variable: "--font-bebas",
 });
-const kolker = Kolker_Brush({
-  weight: "400",
+
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  variable: "--font-kolker",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-cormorant",
 });
+
 const lora = Lora({ subsets: ["latin"], variable: "--font-lora" });
+
 const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-montserrat",
 });
 
-// --- 1. Badge Component ---
-const TourTypeBadge = ({ type }) => {
-  const styles =
-    type === "luxury"
-      ? "border-amber-500/50 text-amber-100 bg-amber-900/30"
-      : "border-[#4a7c59]/50 text-white bg-[#4a7c59]/20";
-
-  return (
-    <div
-      className={`absolute top-4 left-4 z-20 px-4 py-1.5 rounded-full border backdrop-blur-md flex items-center gap-2 ${styles}`}
-    >
-      <FaStar className="text-[10px]" />
-      <span className="font-montserrat text-[10px] uppercase tracking-[0.2em]">
-        {type}
-      </span>
-    </div>
-  );
-};
-
-// --- 2. UPDATED: Tour Card Component ---
-const TourCard = ({
-  tour,
-  expandedTour,
-  toggleExpand,
-  activeTab,
-  setActiveTab,
-}) => {
-  const flatItinerary = tour.parts?.flatMap((part) => part.days) || [];
-
-  // Helper to split title safely
-  const [mainTitle, subTitle] = tour.title.includes("–") 
-    ? tour.title.split("–") 
-    : [tour.title, null];
+// --- COMPONENT: The Overlapping Editorial Card ---
+const EditorialTour = ({ tour, index }) => {
+  const isEven = index % 2 === 0;
 
   return (
     <motion.div
-      layout
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 100 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5 }}
-      className="group relative bg-[#0a0a0a] border border-white/10 rounded-xl overflow-hidden hover:border-[#4a7c59]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#4a7c59]/5"
+      viewport={{ once: true, margin: "-10%" }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="relative mb-32 md:mb-48 last:mb-0"
     >
-      {/* 1. Image Section with Overlapping Title */}
-      <div className="relative h-72 w-full overflow-hidden">
-        <Image
-          src={tour.images[0]}
-          alt={tour.title}
-          fill
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
-        />
-        
-        {/* Gradient Overlay - Darker at bottom for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-90 transition-opacity duration-500" />
-        
-
-        {/* --- UPDATED: SPLIT TITLE DESIGN --- */}
-        <div className="absolute bottom-0 left-0 w-full p-6 z-10">
-          <h3 className="text-white drop-shadow-lg">
-            {/* Part 1: Main Title (Bebas, Large) */}
-            <span className="block font-bold text-4xl leading-[0.85] group-hover:text-[#4a7c59] transition-colors duration-300">
-              {mainTitle}
-            </span>
-            
-            {/* Part 2: Subtitle (Montserrat, Green, Tracking) */}
-            {subTitle && (
-              <span className="block font-montserrat text-[11px] uppercase tracking-[0.25em] text-[#4a7c59] mt-2 group-hover:text-white transition-colors duration-300 font-bold">
-                {subTitle}
-              </span>
-            )}
-          </h3>
-        </div>
+      {/* 0. Background Number Watermark */}
+      <div
+        className={`absolute -top-20 md:-top-32 ${
+          isEven ? "-left-10" : "-right-10"
+        } z-0 opacity-[0.03] select-none`}
+      >
+        <span className="font-bebas text-[15rem] md:text-[20rem] text-white leading-none">
+          {String(index + 1).padStart(2, "0")}
+        </span>
       </div>
 
-      {/* 2. Content Section */}
-      <div className="px-6 pb-6 pt-2">
-        
-        {/* Meta Data Row */}
-        <div className="flex items-center gap-4 text-gray-400 mb-5">
-          <div className="flex items-center gap-2">
-            <FaClock className="text-[#4a7c59] text-xs" />
-            <span className="font-montserrat text-[10px] uppercase tracking-wider">
-              {tour.duration}
-            </span>
-          </div>
-          <div className="w-[1px] h-3 bg-white/10"></div>
-          <div className="flex items-center gap-2">
-            <FaMapMarkerAlt className="text-[#4a7c59] text-xs" />
-            <span className="font-montserrat text-[10px] uppercase tracking-wider">
-              Sri Lanka
-            </span>
-          </div>
-        </div>
-
-        {/* Divider */}
-        <div className="h-[1px] w-full bg-white/5 mb-5"></div>
-
-        {/* Highlights (Clean List) */}
-        <div className="grid grid-cols-2 gap-y-2 gap-x-4 mb-6">
-          {tour.highlights.slice(0, 4).map((highlight, i) => (
-            <div key={i} className="flex items-center gap-2">
-              <div className="w-1 h-1 bg-[#4a7c59] rounded-full flex-shrink-0" />
-              <span className="font-lora text-gray-400 text-xs truncate">
-                {highlight}
-              </span>
+      <div
+        className={`flex flex-col ${
+          isEven ? "lg:flex-row" : "lg:flex-row-reverse"
+        } items-center relative z-10`}
+      >
+        {/* 1. IMAGE CONTAINER (Wide & Cinematic) */}
+        <div className="w-full lg:w-[75%] relative aspect-[16/10] md:aspect-[16/9] lg:aspect-[16/8] overflow-hidden rounded-sm shadow-2xl group cursor-pointer">
+          <Link href={`/tours/${tour.id}`}>
+            <Image
+              src={tour.images[0]}
+              alt={tour.title}
+              fill
+              className="object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105 filter brightness-[0.8] group-hover:brightness-100"
+            />
+            {/* Vertical Text Label */}
+            <div
+              className={`absolute top-8 ${
+                isEven ? "right-8" : "left-8"
+              } hidden md:block`}
+            >
+              <div className="flex flex-col gap-6">
+                <span className="writing-vertical-lr text-[10px] font-montserrat uppercase tracking-[0.3em] text-white/80 border-l border-white/30 pl-3 h-24 flex items-center">
+                  {tour.type || "Premium Collection"}
+                </span>
+              </div>
             </div>
-          ))}
+          </Link>
         </div>
 
-        {/* Expandable Details (Minimalist Button) */}
-        <div className="mb-6">
-          <button
-            onClick={() => toggleExpand(tour.id)}
-            className="flex items-center justify-between w-full group/btn py-2 border-y border-white/5 hover:border-white/10 transition-colors"
-          >
-            <span className="font-montserrat text-[10px] uppercase tracking-[0.2em] text-gray-400 group-hover/btn:text-white transition-colors">
-              View Summary
+        {/* 2. TEXT CONTENT BOX (Overlapping the Image) */}
+        <div
+          className={`
+            w-[90%] lg:w-[45%] 
+            bg-[#0a0a0a] border border-white/10 
+            p-8 md:p-12 lg:p-14 
+            mt-[-4rem] lg:mt-0 
+            lg:absolute ${isEven ? "right-0" : "left-0"} 
+            shadow-[0_20px_50px_rgba(0,0,0,0.7)]
+            group hover:border-[#4a7c59]/50 transition-colors duration-500
+          `}
+        >
+          {/* Top Meta */}
+          <div className="flex items-center gap-4 mb-8 text-[#4a7c59] font-montserrat text-[10px] uppercase tracking-[0.2em]">
+            <span className="flex items-center gap-2">
+              <FaClock /> {tour.duration}
             </span>
-            <FaChevronRight className={`text-xs text-[#4a7c59] transition-transform duration-300 ${expandedTour === tour.id ? 'rotate-90' : ''}`} />
-          </button>
+            <span className="w-px h-3 bg-white/20"></span>
+            <span className="flex items-center gap-2">
+              <FaMapMarkerAlt /> Sri Lanka
+            </span>
+          </div>
 
-          <AnimatePresence>
-            {expandedTour === tour.id && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="overflow-hidden"
-              >
-                <div className="pt-4 pb-2 bg-white/[0.02] rounded-b-lg -mx-6 px-6 mb-[-1rem]">
-                  {/* Minimal Tabs */}
-                  <div className="ml-4 flex gap-4 border-b border-white/5 mb-4">
-                    {['itinerary', 'included'].map((tab) => (
-                      <button
-                        key={tab}
-                        className={`pb-2 font-montserrat text-[9px] uppercase tracking-widest transition-all ${
-                          activeTab === tab ? "text-[#4a7c59] border-b border-[#4a7c59]" : "text-gray-500 hover:text-white"
-                        }`}
-                        onClick={() => setActiveTab(tab)}
-                      >
-                        {tab}
-                      </button>
-                    ))}
-                  </div>
+          {/* Title */}
+          <h2 className="font-bebas text-3xl  text-white mb-6 leading-[1.2]">
+            <span className="block font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 group-hover:to-[#4a7c59] transition-all duration-500">
+              {tour.title}
+            </span>
+            <span className="block font-montserrat text-sm uppercase tracking-[0.3em] mt-1 text-gray-400">
+              {tour.subtitle || "Exclusive Wildlife Journey"}
+            </span>
+          </h2>
 
-                  {/* Tab Content */}
-                  <div className="ml-2 max-h-48 overflow-y-auto custom-scrollbar pr-2">
-                    {activeTab === "itinerary" ? (
-                      <div className="space-y-3">
-                        {flatItinerary.map((item, i) => (
-                          <div key={i} className="flex gap-3">
-                            <span className="ml-2 font-montserrat text-[#4a7c59] text-[10px] font-bold w-8 shrink-0 pt-0.5">
-                              {item.day.replace("Day ", "D")}
-                            </span>
-                            <div>
-                              <p className="font-montserrat text-white text-[10px] uppercase mb-0.5">
-                                {item.destination}
-                              </p>
-                              <p className="font-lora text-gray-500 text-[10px] leading-relaxed">
-                                {item.activities || item.details}
-                              </p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="space-y-1.5">
-                        {tour.inclusions.map((item, i) => (
-                          <div key={i} className="flex items-center gap-2">
-                            <FaCheck className="text-[#4a7c59] text-[8px]" />
-                            <span className="font-lora text-gray-400 text-[10px]">{item}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+          {/* Quote/Subtitle */}
+          <div className="mb-6 relative">
+            <FaQuoteRight className="absolute -top-2 -left-2 text-3xl text-white/5" />
+            <p className="font-cormorant text-xl md:text-2xl text-gray-300 italic relative z-10 pl-4">
+              {tour.highlight ||
+                "A curated journey through the untouched wilderness."}
+            </p>
+          </div>
 
-        {/* Action Button (Outline Style - Lighter Feel) */}
-        <div className="mt-auto">
+          {/* Description */}
+          <p className="font-lora text-sm text-gray-400 leading-relaxed mb-8 line-clamp-3 md:line-clamp-4">
+            {tour.description ||
+              "Experience the thrill of tracking leopards in Yala, watching elephants gather in Minneriya, and relaxing in luxury eco-lodges deep within the jungle."}
+          </p>
+
+          {/* Action */}
           <Link
             href={`/tours/${tour.id}`}
-            className="block w-full py-3.5 rounded-sm border border-white/10 hover:border-[#4a7c59] bg-[#4a7c59] hover:bg-[#4a7c59]/5 text-center transition-all duration-300 group/link"
+            className="inline-flex items-center gap-4 group/btn pb-1 border-b border-transparent hover:border-[#4a7c59] transition-all"
           >
-            <span className="font-montserrat text-[10px] uppercase tracking-[0.25em] text-white group-hover/link:text-[#4a7c59]">
-              Full Details
+            <span className="font-montserrat text-xs font-bold uppercase tracking-[0.3em] text-white">
+              Explore Itinerary
             </span>
+            <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover/btn:bg-[#4a7c59] group-hover/btn:border-[#4a7c59] transition-all duration-300">
+              <FaArrowRight className="text-[10px] text-white -rotate-45 group-hover/btn:rotate-0 transition-transform duration-300" />
+            </div>
           </Link>
         </div>
       </div>
@@ -233,64 +155,38 @@ const TourCard = ({
   );
 };
 
-// --- Main TourPage Component ---
+// --- MAIN PAGE ---
 const TourPage = () => {
-  const [expandedTour, setExpandedTour] = useState(null);
-  const [activeTab, setActiveTab] = useState("itinerary");
-  const [activeFilter, setActiveFilter] = useState("all");
-
-  const toggleExpand = (tourId) => {
-    if (expandedTour !== tourId) {
-      setActiveTab("itinerary");
-    }
-    setExpandedTour((prevId) => (prevId === tourId ? null : tourId));
-  };
-
-  // Filter tours based on active filter
-  const filteredTours = tours.filter((tour) => {
-    if (activeFilter === "all") return true;
-    if (activeFilter === "premium") return tour.type === "premium";
-    if (activeFilter === "luxury") return tour.type === "luxury";
-    if (activeFilter === "wildlife") return tour.category === "wildlife";
-    if (activeFilter === "cultural") return tour.category === "cultural";
-    return true;
-  });
-
-  // Group tours by type for better organization
-  const premiumTours = filteredTours.filter((tour) => tour.type === "premium");
-  const luxuryTours = filteredTours.filter((tour) => tour.type === "luxury");
-  const otherTours = filteredTours.filter(
-    (tour) => !tour.type || tour.type === "standard"
+  // Organizing tours
+  const premiumTours = tours.filter(
+    (tour) => tour.type === "premium" || tour.type === "luxury" || !tour.type
   );
 
   return (
     <div
-      className={`${bebas.variable} ${lora.variable} ${montserrat.variable} ${kolker.variable} min-h-screen bg-black text-white`}
+      className={`${bebas.variable} ${lora.variable} ${montserrat.variable} ${cormorant.variable} min-h-screen bg-[#050505] text-white`}
     >
-      {/* Custom CSS */}
-      <style jsx>{`
-        .text-earth-green { color: #4a7c59; }
-        .text-earth-green-light { color: #8a9b68; }
-        .bg-earth-green { background-color: #4a7c59; }
-        .wildlife-texture {
-          background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%234a7c59' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+      <style jsx global>{`
+        .writing-vertical-lr {
+          writing-mode: vertical-lr;
+          transform: rotate(180deg);
         }
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #4a7c59; border-radius: 4px; }
+        .wildlife-texture {
+          background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%234a7c59' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
       `}</style>
 
-      {/* Hero Section */}
+      {/* --- HERO SECTION (PRESERVED) --- */}
       <div className="relative h-[50vh] w-full overflow-hidden bg-black">
-        <div className="absolute inset-0 wildlife-texture"></div>
+        <div className="absolute inset-0 wildlife-texture opacity-30"></div>
         <Image
-          src="/images/heronew.jpg"
+          src="/images/about1.jpg"
           alt="Wildlife photography tours"
           fill
-          className="object-cover opacity-80"
+          className="object-cover opacity-70"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/90" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/80" />
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
           <motion.h1
             style={{ fontFamily: "var(--font-bebas)" }}
@@ -300,7 +196,10 @@ const TourPage = () => {
             transition={{ duration: 0.8 }}
           >
             <span className=" text-white">TRAVEL</span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]"> ITENARIES</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]">
+              {" "}
+              ITINERARIES
+            </span>
           </motion.h1>
           <motion.p
             className="font text-lg max-w-3xl text-gray-200 leading-relaxed"
@@ -314,164 +213,17 @@ const TourPage = () => {
         </div>
       </div>
 
-      {/* Main Tours Section */}
-      <div className="relative bg-black pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        
-        {/* Ambient Glows for atmosphere */}
-        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#4a7c59] rounded-full mix-blend-screen filter blur-[200px] opacity-10 pointer-events-none -translate-x-1/2"></div>
-        
-        <div className="max-w-7xl mx-auto relative z-10">
-          
-          {/* Premium Tours Section */}
-          {premiumTours.length > 0 && (
-            <section className="mb-20">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {premiumTours.map((tour) => (
-                  <TourCard
-                    key={tour.id}
-                    tour={tour}
-                    expandedTour={expandedTour}
-                    toggleExpand={toggleExpand}
-                    activeTab={activeTab}
-                    setActiveTab={setActiveTab}
-                  />
-                ))}
-              </div>
-            </section>
-          )}
+      {/* --- THE COLLECTION --- */}
+      <div className="relative pt-24 pb-32">
+        {/* Glow Effects */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#4a7c59] rounded-full mix-blend-screen filter blur-[200px] opacity-10 pointer-events-none"></div>
 
-          {/* Luxury Tours Section */}
-          {luxuryTours.length > 0 && (
-            <section>
-              <motion.div
-                className="text-center mb-12"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7 }}
-                viewport={{ once: true }}
-              >
-                <p className="pb-3 text-earth-green font-montserrat text-xs uppercase tracking-[0.3em]">
-                  CURATED JOURNEYS
-                </p>
-                <h3 className="font-bebas text-4xl md:text-5xl text-white mb-4">
-                  LUXURY <span className="text-earth-green">TOURS</span>
-                </h3>
-                <p className="font-lora text-gray-400 max-w-2xl mx-auto">
-                  Unmatched comfort, exclusive camps, and personalized
-                  itineraries for a truly bespoke safari experience.
-                </p>
-              </motion.div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {luxuryTours.map((tour) => (
-                  <TourCard
-                    key={tour.id}
-                    tour={tour}
-                    expandedTour={expandedTour}
-                    toggleExpand={toggleExpand}
-                    activeTab={activeTab}
-                    setActiveTab={setActiveTab}
-                  />
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* Other Tours Section */}
-          {otherTours.length > 0 && (
-            <section>
-              <motion.div
-                className="text-center mb-12 mt-20"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7 }}
-                viewport={{ once: true }}
-              >
-                <h3 className="font-bebas text-3xl md:text-4xl text-white mb-4">
-                  SPECIALTY <span className="text-earth-green">TOURS</span>
-                </h3>
-                <p className="font-lora text-gray-400 max-w-2xl mx-auto">
-                  Unique experiences tailored to specific interests and travel
-                  styles
-                </p>
-              </motion.div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {otherTours.map((tour) => (
-                  <TourCard
-                    key={tour.id}
-                    tour={tour}
-                    expandedTour={expandedTour}
-                    toggleExpand={toggleExpand}
-                    activeTab={activeTab}
-                    setActiveTab={setActiveTab}
-                  />
-                ))}
-              </div>
-            </section>
-          )}
-        </div>
-
-        {/* Decorative Gradient Blobs */}
-        <div className="absolute -bottom-24 -left-24 w-72 h-72 rounded-full bg-earth-green/10 blur-3xl"></div>
-        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-amber-500/5 blur-3xl"></div>
-      </div>
-
-      {/* Features Section */}
-      <div className="relative bg-black pt-10 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            viewport={{ once: true }}
-          >
-            <p className="pb-3 text-earth-green font-montserrat text-xs uppercase tracking-[0.3em]">
-              WHY CHOOSE US
-            </p>
-            <h2 className="font-bebas text-4xl md:text-5xl text-white mb-4">
-              UNMATCHED <span className="text-earth-green">EXPERIENCE</span>
-            </h2>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: FaUsers,
-                title: "Small Groups",
-                description:
-                  "Limited to 6 participants for personalized attention and optimal photography opportunities",
-              },
-              {
-                icon: FaHotel,
-                title: "Luxury Stays",
-                description:
-                  "Premium lodges and tented camps in optimal locations for wildlife viewing",
-              },
-              {
-                icon: FaSlidersH,
-                title: "Customizable Tours",
-                description:
-                  "Tailor-made itineraries shaped to your interests, pace, and travel style",
-              },
-            ].map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                className="bg-[#0D0D0C] p-8 rounded-lg border border-gray-800 text-center relative overflow-hidden group hover:border-[#4a7c59]/50 transition-colors duration-300"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <div className="bg-earth-green/20 p-4 rounded-full inline-flex mb-6 group-hover:bg-earth-green/30 transition-colors">
-                  <feature.icon className="text-[#4a7c59] text-3xl group-hover:text-white transition-colors" />
-                </div>
-                <h3 className="font-bebas text-2xl text-white mb-4">
-                  {feature.title}
-                </h3>
-                <p className="font-lora text-gray-400 leading-relaxed">
-                  {feature.description}
-                </p>
-              </motion.div>
+        {/* CONTAINER WITH THE "GAP" (max-w-7xl) */}
+        <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20 relative z-10">
+          {/* TOUR LIST */}
+          <div className="flex flex-col">
+            {premiumTours.map((tour, index) => (
+              <EditorialTour key={tour.id} tour={tour} index={index} />
             ))}
           </div>
         </div>
