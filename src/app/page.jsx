@@ -671,7 +671,7 @@ const Home = () => {
 
                 <Link
                   href={`/tours/${tours[activeIndex].id}`}
-                  className="inline-flex items-center gap-2 bg-[#c6a87c] text-black px-8 py-3 rounded-sm font-montserrat text-xs font-bold uppercase tracking-widest hover:bg-white transition-colors duration-300"
+                  className="inline-flex items-center gap-2 border text-white px-8 py-3 rounded-sm font-montserrat text-xs font-bold uppercase tracking-widest hover: transition-colors duration-300"
                 >
                   Explore Tour <FaArrowRight />
                 </Link>
@@ -681,7 +681,6 @@ const Home = () => {
         </div>
 
         {/* CONTROLS */}
-
         <div className="flex justify-center gap-6 mt-10">
           <button
             onClick={handlePrev}
