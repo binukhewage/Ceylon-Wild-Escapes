@@ -162,7 +162,7 @@ const cards = [
     title: "Destinations",
     subtitle: "Explore iconic habitats",
     icon: <FaMapMarkerAlt className="text-xl" />,
-    image: "/images/hp-d.jpeg",
+    image: "/images/wilpattu.jpg",
     link: "/destinations",
     stats: "06+ Locations",
     description:
