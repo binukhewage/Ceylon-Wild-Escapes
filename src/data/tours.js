@@ -7,7 +7,10 @@ export const tours = [
   {
     id: 1,
     type: "premium",
-    title: "Kurulu Trail – Avian Jewels of Ceylon",
+    title: "Kurulu Trail",
+    subtitle: "Avian Jewels of Ceylon",
+    highlight: "",
+    description: "",
     heroImage: "/images/hero12.jpg",
     duration: "15 Days / 14 Nights",
     price: "$5,499",
@@ -181,14 +184,17 @@ export const tours = [
   {
     id: 2,
     type: "premium",
-    title: "Pulli Trail – The Leopard Odyssey",
+    title: "Pulli Trail",
+    subtitle: "The Leopard Odyssey",
+    highlight: "",
+    description: "",
     heroImage: "/images/we.jpg",
     duration: "15 Days / 14 Nights",
     price: "$5,999",
     intro:
       "Track Sri Lanka’s apex predator across its four major habitats: Wilpattu, Horton Plains, Kumana, and Yala. Includes 10 safari opportunities with expert leopard trackers.",
     images: [
-      "/images/willep.jpg",
+      "/images/wilpattu-dd.jpg",
       "/images/kumana1.jpg",
       "/images/minneriya1.jpg",
     ],
@@ -479,8 +485,8 @@ export const tours = [
     price: "$5,999",
     intro: "Luxury wildlife expedition across Sri Lanka's top national parks.",
     images: [
-      "/images/willep.jpg",
-      "/images/minneriya1.jpg",
+      "/images/minneriya-d.jpg",
+      "/images/minneriya-d.jpg",
       "/images/horton1.jpg",
     ],
     highlights: [
@@ -553,7 +559,7 @@ export const tours = [
     duration: "14 Days / 13 Nights",
     price: "$5,999",
     intro: "Experience Sri Lanka's southern wilderness with luxury comfort.",
-    images: ["/images/kumana.jpg", "/images/kumana1.jpg", "/images/yala1.jpg"],
+    images: ["/images/kumana.jpg", "/images/kumana1.jpg", "/images/yala.jpg"],
     highlights: [
       "Yala Leopards",
       "Kumana Birdlife",
