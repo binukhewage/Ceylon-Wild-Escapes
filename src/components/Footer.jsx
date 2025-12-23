@@ -42,13 +42,23 @@ const Footer = () => {
           
           {/* Column 1: Brand Identity (Span 4 cols) */}
           <div className="lg:col-span-4 space-y-8">
-            <Link href="/" className="block">
+            {/* --- MODIFIED LOGO SECTION --- */}
+            <Link href="/" className="flex items-center gap-4 group w-fit">
               <Image
                 src={logo}
-                alt="Ceylon Wild Clicks"
-                className="w-20 h-auto opacity-90 hover:opacity-100 transition-opacity"
+                alt="Ceylon Wild Escapes"
+                className="w-16 h-auto opacity-90 group-hover:opacity-100 transition-opacity"
               />
+              <div className="flex flex-col">
+                <span className="font-montserrat text-white text-xl font-bold tracking-widest uppercase leading-none">
+                  Ceylon
+                </span>
+                <span className="font-montserrat text-white text-xl font-bold tracking-widest uppercase leading-[1.2]">
+                  WILD ESCAPES
+                </span>
+              </div>
             </Link>
+            {/* ----------------------------- */}
 
             <p className="font-lora text-gray-400 text-sm leading-7 max-w-sm">
               We curate immersive expeditions into Sri Lanka's untouched wilderness. 
@@ -110,16 +120,16 @@ const Footer = () => {
             <div className="space-y-6 font-lora text-sm text-gray-400">
               <p className="leading-relaxed">
                 <span className="block text-white mb-1 font-montserrat text-xs uppercase tracking-wide">Headquarters</span>
-                No. 123, Wildlife Lane,<br />Colombo 05, Sri Lanka
+                No 21/12A, Dewala Road,<br />Pagoda, Nugegoda, <br/> Sri Lanka.
               </p>
               
               <div>
                  <span className="block text-white mb-1 font-montserrat text-xs uppercase tracking-wide">Inquiries</span>
-                 <a href="mailto:hello@ceylonwild.com" className="hover:text-[#4a7c59] transition-colors">hello@ceylonwild.com</a>
+                 <a href="mailto:info@ceylonwildescapes.com" className="hover:text-[#4a7c59] transition-colors">info@ceylonwildescapes.com</a>
               </div>
 
               <a 
-                href="https://wa.me/94761234567" 
+                href="https://wa.me/94779904228" 
                 className="inline-flex items-center gap-2 text-white border border-white/20 px-6 py-3 rounded-full hover:bg-[#4a7c59] hover:border-[#4a7c59] transition-all duration-300 text-xs font-montserrat tracking-widest uppercase"
               >
                 <FaWhatsapp className="text-lg" />

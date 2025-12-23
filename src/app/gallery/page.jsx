@@ -34,7 +34,7 @@ const montserrat = Montserrat({
 const galleryItems = [
   // Leopards
   { id: 1, src: "/images/willep.jpg", category: "Leopard", title: "Apex Predator", type: "color" },
-  { id: 3, src: "/images/lep.jpg", category: "Leopard", title: "Shadow Stalker", type: "bnw" }, // B&W Example
+  { id: 3, src: "/images/yala-d.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" }, // B&W Example
 
   // Elephants
   { id: 4, src: "/images/eleb.jpg", category: "Elephant", title: "Gentle Giant", type: "color" },
@@ -58,11 +58,13 @@ const galleryItems = [
 // --- Categories for Filter ---
 const categories = [
   { id: "all", label: "All Archives" },
-  { id: "bnw", label: "Monochrome" }, // Special B&W Set
   { id: "Leopard", label: "Leopards" },
   { id: "Elephant", label: "Elephants" },
   { id: "Sloth Bear", label: "Bears" },
+  { id: "Deer", label: "Deer" },
   { id: "Birds", label: "Avians" },
+  { id: "Reptiles", label: "Reptiles" },
+  { id: "bnw", label: "Monochrome" }, 
   { id: "other", label: "other animals" },
 ];
 
@@ -80,11 +82,20 @@ const GalleryPage = () => {
   return (
     <div className={`${bebas.variable} ${lora.variable} ${montserrat.variable} ${kolker.variable} min-h-screen bg-black text-white selection:bg-[#4a7c59] selection:text-white`}>
       
-      {/* Scrollbar Customization */}
+      {/* Scrollbar Customization & Hide Utility */}
       <style jsx global>{`
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: #4a7c59; border-radius: 3px; }
+        
+        /* Hide scrollbar for the mobile filter menu */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
       `}</style>
 
       {/* =========================================
@@ -138,27 +149,67 @@ const GalleryPage = () => {
 
         <div className="max-w-7xl mx-auto">
           
-          {/* --- GLASS FILTER BAR --- */}
+          {/* --- RESPONSIVE FILTER BAR --- */}
+          {/* Mobile: Sticky, Horizontal Scroll | Desktop: Static, Centered Glass Pill */}
           <motion.div 
-            className="flex flex-wrap justify-center gap-3 mb-16"
+            className="mb-12 md:mb-16 sticky top-20 z-40 md:static"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-full p-1.5 flex flex-wrap justify-center gap-2 shadow-2xl">
+            {/* FIXED: Changed to Template Literal (backticks) to support multi-line class string safely */}
+             <div className={`
+                flex 
+                overflow-x-auto 
+                items-center
+                gap-3 
+                px-4 
+                pb-4 
+                -mx-4 
+                md:mx-auto 
+                md:p-1.5 
+                md:flex-wrap 
+                md:justify-center 
+                md:gap-2 
+                md:w-max 
+                md:bg-white/5 
+                md:backdrop-blur-xl 
+                md:border 
+                md:border-white/10 
+                md:rounded-full 
+                md:shadow-2xl
+                scrollbar-hide 
+                snap-x
+             `}>
                 {categories.map((cat) => (
                   <button
                     key={cat.id}
                     onClick={() => setActiveCategory(cat.id)}
-                    className={`px-6 py-2.5 rounded-full text-[10px] uppercase tracking-[0.2em] font-montserrat transition-all duration-300 relative overflow-hidden group ${
+                    className={`
+                      relative 
+                      px-5 py-2 md:px-6 md:py-2.5 
+                      rounded-full 
+                      text-[10px] md:text-[11px] 
+                      uppercase 
+                      tracking-[0.2em] 
+                      font-montserrat 
+                      whitespace-nowrap 
+                      transition-all 
+                      duration-300 
+                      flex-shrink-0 
+                      snap-start
+                      border
+                      group
+                      ${
                       activeCategory === cat.id
-                        ? "bg-[#4a7c59] text-white shadow-[0_0_20px_rgba(74,124,89,0.4)]"
-                        : "text-gray-400 hover:text-white hover:bg-white/5"
+                        ? "bg-[#4a7c59] text-white border-[#4a7c59] shadow-[0_0_20px_rgba(74,124,89,0.4)]"
+                        : "bg-black/80 backdrop-blur-md md:bg-transparent border-white/10 md:border-transparent text-gray-400 hover:text-white hover:bg-white/10"
                     }`}
                   >
                     <span className="relative z-10">{cat.label}</span>
                     {activeCategory === cat.id && (
-                       <motion.div layoutId="activePill" className="absolute inset-0 bg-[#4a7c59] rounded-full -z-0" />
+                       // Desktop Only Active Background Animation
+                       <motion.div layoutId="activePill" className="hidden md:block absolute inset-0 bg-[#4a7c59] rounded-full -z-0" />
                     )}
                   </button>
                 ))}
@@ -254,8 +305,8 @@ const GalleryPage = () => {
                />
                
                {/* Caption */}
-               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md px-6 py-3 rounded-full border border-white/10 text-center">
-                  <span className="font-montserrat text-[#4a7c59] text-[10px] uppercase tracking-widest mr-3">
+               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md px-6 py-3 rounded-full border border-white/10 text-center w-[90%] md:w-auto">
+                  <span className="font-montserrat text-[#4a7c59] text-[10px] uppercase tracking-widest mr-0 md:mr-3 block md:inline mb-1 md:mb-0">
                      {selectedImage.category}
                   </span>
                   <span className="font-bebas text-xl text-white tracking-wide">

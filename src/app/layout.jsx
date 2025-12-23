@@ -1,8 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";  
+import Footer from "../components/Footer";  
 
 // Google Fonts
 const geistSans = Geist({
@@ -49,7 +49,7 @@ export const metadata = {
     siteName: "Ceylon Wild Escapes",
     images: [
       {
-        url: "/images/cwc.png", // ⚠️ Make sure this file exists in /public
+        url: "/images/cwc.png", 
         width: 1200,
         height: 630,
         alt: "Sri Lankan Leopard - Ceylon Wild Escapes",
@@ -83,9 +83,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Navbar />
+        
+        {/* Navbar is hidden for Coming Soon Mode */}
+        
+        
         <main>{children}</main>
-        <Footer />
+        
+        {/* Footer is hidden for Coming Soon Mode */}
+         
+        
         <Analytics />
       </body>
     </html>
