@@ -85,12 +85,12 @@ export default function RootLayout({ children }) {
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         
         {/* Navbar is hidden for Coming Soon Mode */}
-        
+        <Navbar />
         
         <main>{children}</main>
         
         {/* Footer is hidden for Coming Soon Mode */}
-         
+        <Footer />
         
         <Analytics />
       </body>
