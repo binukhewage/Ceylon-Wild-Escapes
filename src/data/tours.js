@@ -485,7 +485,7 @@ export const tours = [
     price: "$5,999",
     intro: "Luxury wildlife expedition across Sri Lanka's top national parks.",
     images: [
-      "/images/minneriya-d.jpg",
+      "/images/nwt-b.jpg",
       "/images/minneriya-d.jpg",
       "/images/horton1.jpg",
     ],
