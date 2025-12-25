@@ -124,7 +124,9 @@ const About = () => {
                 CEYLON WILD ESCAPES
               </span>
             </h1>
-            <p className="font-lora text-gray-300 text-md md:text-lg max-w-2xl mx-auto leading-relaxed">
+            <p 
+            style={{ fontFamily: "var(--font-montserrat)" }}
+            className="font-lora text-gray-300 text-md md:text-lg max-w-2xl mx-auto leading-relaxed">
               Capturing the soul of Sri Lanka through ethical photography and
               immersive, luxurious expeditions.
             </p>

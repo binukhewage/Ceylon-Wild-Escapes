@@ -2,15 +2,158 @@
 
 export const tours = [
   // ======================================================
-  // 1. Kurulu Trail – Avian Jewels of Ceylon
+  // 1. Pulli Trail – The Leopard Odyssey
   // ======================================================
   {
     id: 1,
-    type: "premium",
+    type: "Premium",
+    title: "Pulli Trail",
+    subtitle: "The Leopard Odyssey",
+    highlight: "Follow the tracks of the spotted king where nature rules",
+    description: "A dedicated safari journey focused on tracking the elusive Sri Lankan Leopard across four key habitats Wilpattu, Kumana, Horton Plains, and Yala featuring ten expertly curated safaris designed to maximize sightings and immerse you in the wild heart of Ceylon.",
+    heroImage: "/images/we.jpg",
+    duration: "15 Days / 14 Nights",
+    price: "$5,999",
+    intro:
+      "Track Sri Lanka’s apex predator across its four major habitats: Wilpattu, Horton Plains, Kumana, and Yala. Includes 10 safari opportunities with expert leopard trackers.",
+    images: [
+      "/images/wilpattu-dd.jpg",
+      "/images/kumana1.jpg",
+      "/images/minneriya1.jpg",
+    ],
+    galleryImages: [
+      "/images/kumana.jpg",
+      "/images/kumanalep.jpg",
+      "/images/kumana.jpg",
+      "/images/kumana.jpg",
+      "/images/kumanalep.jpg",
+      "/images/kumana.jpg",
+    ],
+    highlights: [
+      "10 Leopard Safaris",
+      "Wilpattu Dry Forest ",
+      "Kumana Coastal Wetlands",
+      "Yala Leopard Territories",
+      "Horton Plains Cloud Forests",
+    ],
+
+    parts: [
+      {
+        name: "PART 1: The Northern Wilds – Wilpattu & Nuwara Eliya (Day 1–7)",
+        days: [
+          {
+            day: "Day 1",
+            destination: "Arrival & Negombo",
+            accommodation: "3–5 Star Hotel (BB)",
+            activities:
+              "Arrival, beach leisure, welcome dinner, and leopard tracking briefing.",
+          },
+          {
+            day: "Day 2",
+            destination: "Transfer to Wilpattu",
+            accommodation: "Thimbiriwewa Resort (FB)",
+            activities:
+              "Afternoon safari exploring Villus for leopard, sloth bear, and spotted deer.",
+          },
+          {
+            day: "Day 3–5",
+            destination: "Wilpattu Full Immersion",
+            accommodation: "Thimbiriwewa Resort (FB)",
+            activities:
+              "Three full-day safaris targeting core leopard territories.",
+          },
+          {
+            day: "Day 6",
+            destination: "Transfer to Nuwara Eliya",
+            accommodation: "Nuwara Eliya Hotel (FB)",
+            activities: "Scenic highland transfer and city exploration.",
+          },
+          {
+            day: "Day 7",
+            destination: "Horton Plains National Park",
+            accommodation: "Nuwara Eliya Hotel (FB)",
+            activities:
+              "Safari targeting extremely rare mountain leopards and montane species.",
+          },
+        ],
+      },
+
+      {
+        name: "PART 2: The Remote Coast – Kumana National Park (Day 8–11)",
+        days: [
+          {
+            day: "Day 8",
+            destination: "Transfer to Kumana",
+            accommodation: "Bay Vista Arugambay / Jungle Queen (FB)",
+            activities:
+              "Long scenic drive, beach leisure before deep wilderness exploration.",
+          },
+          {
+            day: "Day 9–11",
+            destination: "Kumana Deep Wilderness",
+            accommodation: "Bay Vista Arugambay / Jungle Queen (FB)",
+            activities:
+              "Three full-day safaris focusing on coastal leopards & endemic birdlife.",
+          },
+        ],
+      },
+
+      {
+        name: "PART 3: Yala & Departure (Day 12–15)",
+        days: [
+          {
+            day: "Day 12",
+            destination: "Transfer to Yala",
+            accommodation: "Yala Chalets by Lalan Leisure (FB)",
+            activities:
+              "Evening half-day safari targeting quiet leopard blocks.",
+          },
+          {
+            day: "Day 13–14",
+            destination: "Yala Full-Day Safaris",
+            accommodation: "Yala Chalets by Lalan Leisure (FB)",
+            activities:
+              "Two full-day safaris covering Yala’s premium leopard territories.",
+          },
+          {
+            day: "Day 15",
+            destination: "Transfer to Colombo & Departure",
+            accommodation: "-",
+            activities:
+              "Scenic drive to Colombo, short city tour, departure from CMB.",
+          },
+        ],
+      },
+    ],
+
+    inclusions: [
+      "Accommodation: 14 nights (3–5 star & safari chalets)",
+      "Meals: BB + picnic meals during safaris",
+      "10 total safaris (7 full-day + 3 half-day)",
+      "All park entrance fees and jeep fees",
+      "Expert leopard trackers & licensed guides",
+      "All transportation & transfers",
+    ],
+    destinations: [
+      "Sinharaja Rain Forest Reserve ",
+      "Kumana National Park",
+      "Nilgala Forest Reserve",
+      "Horton Plains",
+    ],
+
+    exclusions: ["Extra beverages", "Tips", "Personal items not listed"],
+  },
+
+  // ======================================================
+  // 2. Kurulu Trail – Avian Jewels of Ceylon
+  // ======================================================
+  {
+    id: 2,
+    type: "Premium",
     title: "Kurulu Trail",
     subtitle: "Avian Jewels of Ceylon",
-    highlight: "",
-    description: "",
+    highlight: "A curated journey to spot the rare and colorful birds of Paradise",
+    description: "An immersive island-wide expedition through Sri Lanka’s richest biodiversity zones; Sinharaja, Kumana, Gal Oya, Nilgala, and Horton Plains expertly curated to encounter the nation’s endemic birdlife across rainforest, coastal wetlands, dry zone reservoirs, and misty montane landscapes, offering unparalleled opportunities to witness Sri Lanka’s most exclusive avian species in their natural habitats.",
     heroImage: "/images/hero12.jpg",
     duration: "15 Days / 14 Nights",
     price: "$5,499",
@@ -179,155 +322,15 @@ export const tours = [
   },
 
   // ======================================================
-  // 2. Pulli Trail – The Leopard Odyssey
-  // ======================================================
-  {
-    id: 2,
-    type: "premium",
-    title: "Pulli Trail",
-    subtitle: "The Leopard Odyssey",
-    highlight: "",
-    description: "",
-    heroImage: "/images/we.jpg",
-    duration: "15 Days / 14 Nights",
-    price: "$5,999",
-    intro:
-      "Track Sri Lanka’s apex predator across its four major habitats: Wilpattu, Horton Plains, Kumana, and Yala. Includes 10 safari opportunities with expert leopard trackers.",
-    images: [
-      "/images/wilpattu-dd.jpg",
-      "/images/kumana1.jpg",
-      "/images/minneriya1.jpg",
-    ],
-    galleryImages: [
-      "/images/kumana.jpg",
-      "/images/kumanalep.jpg",
-      "/images/kumana.jpg",
-      "/images/kumana.jpg",
-      "/images/kumanalep.jpg",
-      "/images/kumana.jpg",
-    ],
-    highlights: [
-      "10 Leopard Safaris",
-      "Wilpattu Dry Forest ",
-      "Kumana Coastal Wetlands",
-      "Yala Leopard Territories",
-      "Horton Plains Cloud Forests",
-    ],
-
-    parts: [
-      {
-        name: "PART 1: The Northern Wilds – Wilpattu & Nuwara Eliya (Day 1–7)",
-        days: [
-          {
-            day: "Day 1",
-            destination: "Arrival & Negombo",
-            accommodation: "3–5 Star Hotel (BB)",
-            activities:
-              "Arrival, beach leisure, welcome dinner, and leopard tracking briefing.",
-          },
-          {
-            day: "Day 2",
-            destination: "Transfer to Wilpattu",
-            accommodation: "Thimbiriwewa Resort (FB)",
-            activities:
-              "Afternoon safari exploring Villus for leopard, sloth bear, and spotted deer.",
-          },
-          {
-            day: "Day 3–5",
-            destination: "Wilpattu Full Immersion",
-            accommodation: "Thimbiriwewa Resort (FB)",
-            activities:
-              "Three full-day safaris targeting core leopard territories.",
-          },
-          {
-            day: "Day 6",
-            destination: "Transfer to Nuwara Eliya",
-            accommodation: "Nuwara Eliya Hotel (FB)",
-            activities: "Scenic highland transfer and city exploration.",
-          },
-          {
-            day: "Day 7",
-            destination: "Horton Plains National Park",
-            accommodation: "Nuwara Eliya Hotel (FB)",
-            activities:
-              "Safari targeting extremely rare mountain leopards and montane species.",
-          },
-        ],
-      },
-
-      {
-        name: "PART 2: The Remote Coast – Kumana National Park (Day 8–11)",
-        days: [
-          {
-            day: "Day 8",
-            destination: "Transfer to Kumana",
-            accommodation: "Bay Vista Arugambay / Jungle Queen (FB)",
-            activities:
-              "Long scenic drive, beach leisure before deep wilderness exploration.",
-          },
-          {
-            day: "Day 9–11",
-            destination: "Kumana Deep Wilderness",
-            accommodation: "Bay Vista Arugambay / Jungle Queen (FB)",
-            activities:
-              "Three full-day safaris focusing on coastal leopards & endemic birdlife.",
-          },
-        ],
-      },
-
-      {
-        name: "PART 3: Yala & Departure (Day 12–15)",
-        days: [
-          {
-            day: "Day 12",
-            destination: "Transfer to Yala",
-            accommodation: "Yala Chalets by Lalan Leisure (FB)",
-            activities:
-              "Evening half-day safari targeting quiet leopard blocks.",
-          },
-          {
-            day: "Day 13–14",
-            destination: "Yala Full-Day Safaris",
-            accommodation: "Yala Chalets by Lalan Leisure (FB)",
-            activities:
-              "Two full-day safaris covering Yala’s premium leopard territories.",
-          },
-          {
-            day: "Day 15",
-            destination: "Transfer to Colombo & Departure",
-            accommodation: "-",
-            activities:
-              "Scenic drive to Colombo, short city tour, departure from CMB.",
-          },
-        ],
-      },
-    ],
-
-    inclusions: [
-      "Accommodation: 14 nights (3–5 star & safari chalets)",
-      "Meals: BB + picnic meals during safaris",
-      "10 total safaris (7 full-day + 3 half-day)",
-      "All park entrance fees and jeep fees",
-      "Expert leopard trackers & licensed guides",
-      "All transportation & transfers",
-    ],
-    destinations: [
-      "Sinharaja Rain Forest Reserve ",
-      "Kumana National Park",
-      "Nilgala Forest Reserve",
-      "Horton Plains",
-    ],
-
-    exclusions: ["Extra beverages", "Tips", "Personal items not listed"],
-  },
-
-  // ======================================================
   // 3. Urumaya Trail – Heritage & Habitat
   // ======================================================
   {
     id: 3,
-    type: "premium",
-    title: "Urumaya Trail – Heritage & Habitat",
+    type: "Premium",
+    title: "Urumaya Trail",
+    subtitle: "Heritage & Habitat",
+    highlight: "",
+    description: "",
     heroImage: "/images/we.jpg",
     duration: "14 Days / 13 Nights",
     price: "$4,999",
@@ -478,8 +481,11 @@ export const tours = [
   // ======================================================
   {
     id: 4,
-    type: "luxury",
+    type: "Luxury",
     title: "Northern Wild Trail",
+    subtitle: "Avian Jewels of Ceylon",
+    highlight: "",
+    description: "",
     heroImage: "/images/we.jpg",
     duration: "14 Days / 13 Nights",
     price: "$5,999",
@@ -553,8 +559,11 @@ export const tours = [
   // ======================================================
   {
     id: 5,
-    type: "luxury",
+    type: "Luxury",
     title: "Southern Wild Trail",
+    subtitle: "Avian Jewels of Ceylon",
+    highlight: "",
+    description: "",
     heroImage: "/images/we.jpg",
     duration: "14 Days / 13 Nights",
     price: "$5,999",

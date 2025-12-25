@@ -203,6 +203,7 @@ const DestinationsPage = () => {
             </span>
           </motion.h1>
           <motion.p
+            style={{ fontFamily: "var(--font-montserrat)" }}
             className="font-lora text-lg max-w-2xl text-gray-200"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

@@ -83,7 +83,9 @@ const ContactPage = () => {
                 THE WILD
               </span>
             </h1>
-            <p className="font-lora text-gray-300 text-sm md:text-lg max-w-xl mx-auto leading-relaxed drop-shadow-md">
+            <p 
+            style={{ fontFamily: "var(--font-montserrat)" }}
+            className="font-lora text-gray-300 text-sm md:text-lg max-w-xl mx-auto leading-relaxed drop-shadow-md">
               Plan your unforgettable expedition. Our team is ready to craft your perfect itinerary.
             </p>
           </motion.div>

@@ -153,14 +153,15 @@ export default function TourDetails(props) {
               className="text-5xl md:text-7xl leading-[1.2] text-white mb-3 drop-shadow-2xl"
             >
               <span className="block">
-                {tour.title.split(/[-–]/)[0].trim()}{" "}
+                {tour.title.split(/[–]/)[0].trim()}{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]">
-                  - {tour.title.split(/[-–]/)[1]?.trim()}
+                  {tour.title.split(/[–]/)[1]?.trim()}
                 </span>
               </span>
             </h1>
 
             <motion.p
+            style={{ fontFamily: "var(--font-montserrat)" }}
               className="font text-md max-w-4xl text-gray-300 leading-relaxed"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -273,8 +274,8 @@ export default function TourDetails(props) {
             </p>
             <h2 
             
-            className=" uppercase text-3xl md:text-5xl text-white leading-none">
-              Detailed <span className="text-[#4a7c59]">Itinerary</span>
+            className=" font-bold uppercase text-3xl md:text-5xl text-white leading-none">
+              Detailed <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]">Itinerary</span>
             </h2>
           </div>
 

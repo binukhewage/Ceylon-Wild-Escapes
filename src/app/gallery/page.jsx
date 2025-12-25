@@ -60,7 +60,7 @@ const galleryItems = [
   { id: 39, src: "/images/r4.jpg", category: "Reptiles", title: "GreenHunter", type: "color" },
   { id: 40, src: "/images/r7.jpg", category: "Reptiles", title: "GreenHunter", type: "color" },
   { id: 41, src: "/images/r6.jpg", category: "Reptiles", title: "GreenHunter", type: "color" },
-  { id: 42, src: "/images/r8.jpg", category: "Reptiles", title: "GreenHunter", type: "color" },
+  { id: 42, src: "/images/r11.jpg", category: "Reptiles", title: "GreenHunter", type: "color" },
   { id: 43, src: "/images/r9.jpg", category: "Reptiles", title: "GreenHunter", type: "color" },
 
   //Bears
@@ -198,7 +198,9 @@ const GalleryPage = () => {
             className="font-kolker text-5xl md:text-7xl leading-[0.75] text-white mb-6 tracking-tight drop-shadow-2xl">
               WILD LIFE <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]">ARCHIVES</span>
             </h1>
-            <p className="font-lora text-gray-300 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed drop-shadow-md">
+            <p 
+            style={{ fontFamily: "var(--font-montserrat)" }}
+            className="text-gray-300 text-sm md:text-lg max-w-2xl mx-auto leading-relaxed drop-shadow-md">
               A curated collection of moments from Sri Lanka's untamed wilderness.
             </p>
           </motion.div>

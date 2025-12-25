@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import {
   FaSafari,
   FaCamera,
@@ -19,6 +19,7 @@ import {
   FaClock,
   FaTag,
   FaRegClock,
+  FaQuoteLeft,
 } from "react-icons/fa";
 import { Bebas_Neue, Lora, Montserrat, Kolker_Brush } from "next/font/google";
 import { Star } from "lucide-react";
@@ -50,27 +51,27 @@ const kolker = Kolker_Brush({
 const tours = [
   {
     id: 1,
-    type: "Signature",
-    title: "Kurulu Trail",
-    subtitle: "Avian Jewels of Ceylon",
-    heroImage: "/images/hero12.jpg",
-    duration: "15 Days",
-    price: "$5,499",
-    intro: "A deep dive into Sri Lanka’s richest biodiversity hotspots.",
-    highlights: ["Sinharaja Endemics", "Kumana Wetlands", "Gal Oya Boat"],
-    link: "/tours/kurulu-trail",
-  },
-  {
-    id: 2,
     type: "Premium",
     title: "Pulli Trail",
     subtitle: "The Leopard Odyssey",
     heroImage: "/images/wilpattu-dd.jpg",
-    duration: "15 Days",
+    duration: "15 Days/14 Nights",
     price: "$5,999",
     intro: "Track Sri Lanka’s apex predator across its four major habitats.",
     highlights: ["10 Leopard Safaris", "Wilpattu Forest", "Yala Territories"],
     link: "/tours/pulli-trail",
+  },
+  {
+    id: 2,
+    type: "Signature",
+    title: "Kurulu Trail",
+    subtitle: "Avian Jewels of Ceylon",
+    heroImage: "/images/hero12.jpg",
+    duration: "15 Days/14 Nights",
+    price: "$5,499",
+    intro: "A deep dive into Sri Lanka’s richest biodiversity hotspots.",
+    highlights: ["Sinharaja Endemics", "Kumana Wetlands", "Gal Oya Boat"],
+    link: "/tours/kurulu-trail",
   },
   {
     id: 3,
@@ -78,7 +79,7 @@ const tours = [
     title: "Urumaya Trail",
     subtitle: "Heritage & Habitat",
     heroImage: "/images/anu.jpeg",
-    duration: "14 Days",
+    duration: " 15 Days/14 Nights",
     price: "$4,999",
     intro:
       "A perfect blend of culture, history, wildlife, and coastal relaxation.",
@@ -91,7 +92,7 @@ const tours = [
     title: "Northern Wild",
     subtitle: "Untamed North",
     heroImage: "/images/nwt-b.jpg",
-    duration: "14 Days",
+    duration: "15 Days/14 Nights",
     price: "$5,999",
     intro: "Luxury wildlife expedition across Sri Lanka's top national parks.",
     highlights: ["Wilpattu Leopards", "The Gathering", "Luxury Glamping"],
@@ -103,7 +104,7 @@ const tours = [
     title: "Southern Wild",
     subtitle: "Coastal Wilderness",
     heroImage: "/images/yala.jpg",
-    duration: "14 Days",
+    duration: "14 Days/13 Nights",
     price: "$5,999",
     intro: "Experience Sri Lanka's southern wilderness with luxury comfort.",
     highlights: ["Yala Leopards", "Kumana Birdlife", "Horton Plains"],
@@ -114,7 +115,7 @@ const tours = [
 const slides = [
   {
     id: 1,
-    src: "/videos/cwclp.mp4",
+    src: "/videos/homevideo.mp4",
     alt: "Sri Lankan leopard in the wild",
   },
 ];
@@ -137,7 +138,7 @@ const teamMembers = [
 const cards = [
   {
     id: 1,
-    title: "Wildlife Tours",
+    title: "WILDLIFE TOURS",
     subtitle: "Expert-guided safari adventures",
     icon: <FaSafari className="text-xl" />,
     image: "/images/safari.jpg",
@@ -155,7 +156,7 @@ const cards = [
     link: "/gallery",
     stats: "10,000+ Images",
     description:
-      "Award-winning photography from our team of professional wildlife photographers.",
+      "Breath-taking wildlife moments captured by the man behind the lens.",
   },
   {
     id: 3,
@@ -176,16 +177,16 @@ const reviews = [
     name: "Sarah Johnson",
     role: "Wildlife Photographer",
     rating: 5,
-    text: "The leopard sightings were beyond anything I could have imagined. The guides' knowledge was exceptional.",
+    text: "The leopard sightings were beyond anything I could have imagined. The guides' knowledge was exceptional, getting us into the perfect position for light and composition without disturbing the animals.",
     image: "/images/review1.jpg",
-    location: "UK",
+    location: "United Kingdom",
   },
   {
     id: 2,
     name: "Michael Chen",
     role: "Nature Journalist",
     rating: 5,
-    text: "Ceylon Wild Clicks delivered the most authentic wildlife experience I've had in 15 years of travel.",
+    text: "Ceylon Wild Escapes delivered the most authentic wildlife experience I've had in 15 years of travel. No rushing, just pure, unadulterated nature. Truly a photographer's dream.",
     image: "/images/review2.jpg",
     location: "USA",
   },
@@ -194,9 +195,18 @@ const reviews = [
     name: "Dr. Priya Fernando",
     role: "Conservation Biologist",
     rating: 5,
-    text: "Their ethical approach to wildlife tourism sets a new standard for the industry. Highly recommended.",
+    text: "Their ethical approach to wildlife tourism sets a new standard for the industry. It was refreshing to see a team so dedicated to preservation while providing a luxury experience.",
     image: "/images/review3.jpg",
     location: "Australia",
+  },
+  {
+    id: 4,
+    name: "Elena Rodriguez",
+    role: "Travel Blogger",
+    rating: 5,
+    text: "From the luxury glamping arrangements to the thrill of tracking sloth bears, every detail was curated to perfection. Roshan's team are true masters of the wild.",
+    image: "/images/review4.jpg",
+    location: "Spain",
   },
 ];
 
@@ -205,12 +215,11 @@ const Home = () => {
   const [isHoveringCard, setIsHoveringCard] = useState(null);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [viewerImage, setViewerImage] = useState("");
-  const [currentTourIndex, setCurrentTourIndex] = useState(0);
   const [email, setEmail] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
 
   // -- CAROUSEL STATE --
-  const [activeIndex, setActiveIndex] = useState(1); // Start with the second item centered
+  const [activeIndex, setActiveIndex] = useState(0);
 
   // Handle Rotation
   const handleNext = () => {
@@ -244,15 +253,6 @@ const Home = () => {
     document.body.style.overflow = "auto";
   };
 
-  // Logic for Tour Slider scrolling
-  const scrollTours = (direction) => {
-    const container = document.getElementById("tours-container");
-    if (container) {
-      const scrollAmount = direction === "left" ? -400 : 400;
-      container.scrollBy({ left: scrollAmount, behavior: "smooth" });
-    }
-  };
-
   const handleSubscribe = (e) => {
     e.preventDefault();
     setIsSubscribed(true);
@@ -262,7 +262,7 @@ const Home = () => {
 
   return (
     <div
-      className={`${bebas.variable} ${lora.variable} ${montserrat.variable} ${kolker.variable} bg-black text-white`}
+      className={`${bebas.variable} ${lora.variable} ${montserrat.variable} ${kolker.variable} bg-black text-white overflow-x-hidden`}
     >
       <style jsx>{`
         .text-earth-green {
@@ -328,7 +328,9 @@ const Home = () => {
                 CEYLON
               </span>
             </h1>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight font-bebas">
+            <h2 
+            
+            className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight font-bebas">
               WILD <span className="text-earth-green">ESCAPES</span>
             </h2>
             <p className="font-lora text-gray-300 text-sm md:text-lg max-w-xl mb-8 md:mb-10 leading-relaxed border-l-2 border-[#4a7c59] pl-4 md:pl-6">
@@ -362,7 +364,7 @@ const Home = () => {
           <span className="font-sans text-xs uppercase tracking-[0.4em] text-earth-green">
             The Visionary
           </span>
-          <h2 className="font-kolker text-4xl sm:text-5xl text-white leading-[1.2] mb-6">
+          <h2 className="font-semibold text-4xl sm:text-5xl text-white leading-[1.2] mb-6">
             BEHIND <br className="md:hidden" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]">
               THE LENSE
@@ -388,7 +390,6 @@ const Home = () => {
                 <div className="absolute inset-0 border border-[#4a7c59]/30 translate-x-4 translate-y-4 rounded-sm z-0"></div>
 
                 {/* Image Container */}
-                {/* UPDATED: Removed grayscale class so the image has color by default */}
                 <div className="relative h-[500px] w-full bg-[#1a1a1a] overflow-hidden rounded-sm shadow-2xl z-10 transition-all duration-700 ease-in-out">
                   <Image
                     src={teamMembers[0].image}
@@ -396,7 +397,6 @@ const Home = () => {
                     fill
                     className="object-cover"
                   />
-                  {/* Gradient Overlay for text readability if needed */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                 </div>
               </motion.div>
@@ -414,8 +414,8 @@ const Home = () => {
                   Roshan Peiris
                 </h2>
 
-                <h3 className="font-kolker text-md md:text-md text-gray-400 mb-8 -mt-2">
-                  Founder | Lead Photographer | Guide
+                <h3 className="font-montserrat text-md md:text-md text-gray-400 mb-8 -mt-2">
+                  Founder | Lead Photographer | Tour Leader
                 </h3>
 
                 <div className="border-l-2 border-[#4a7c59]/30 pl-6 mb-8">
@@ -490,7 +490,7 @@ const Home = () => {
             <span className="font-sans text-xs uppercase tracking-[0.4em] text-earth-green">
               Our Expertise
             </span>
-            <h2 className="font-kolker text-4xl sm:text-5xl text-white leading-[1.2] mb-6">
+            <h2 className="font-semibold text-4xl sm:text-5xl text-white leading-[1.2] mb-6">
               PREMIUM <br className="md:hidden" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]">
                 WILDLIFE EXPERIENCES
@@ -529,16 +529,21 @@ const Home = () => {
                     </button>
                   </div>
                   <div className="transform transition-transform duration-500 translate-y-4 group-hover:translate-y-0">
-                    <div className="mb-2 text-earth-green">{card.icon}</div>
-                    <h3 className="font-kolker text-3xl text-white mb-2 leading-none group-hover:text-earth-green transition-colors">
-                      {card.title}
-                    </h3>
+                    <div className="mb-2 flex items-center gap-3">
+                      <span className="text-earth-green">{card.icon}</span>
+
+                      <h3 
+                      
+                      className="font-bold uppercase text-2xl text-white leading-none group-hover:text-earth-green transition-colors">
+                        {card.title}
+                      </h3>
+                    </div>
                     <div className="h-0 overflow-hidden group-hover:h-auto group-hover:mb-6 transition-all duration-500">
                       <p className="font-lora text-sm text-gray-300 leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
                         {card.description}
                       </p>
                     </div>
-                    <p className="font-lora text-sm text-gray-400 group-hover:hidden transition-all duration-300">
+                    <p className="font-sans text-sm text-gray-400 group-hover:hidden transition-all duration-300">
                       {card.subtitle}
                     </p>
                     <Link
@@ -563,7 +568,7 @@ const Home = () => {
           <span className="font-sans text-xs uppercase tracking-[0.4em] text-earth-green">
             Curated Itineraries
           </span>
-          <h2 className="font-kolker text-4xl sm:text-5xl text-white leading-[1.2] mb-6">
+          <h2 className="font-semibold text-4xl sm:text-5xl text-white leading-[1.2] mb-6">
             SIGNATURE <br className="md:hidden" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]">
               TOURS
@@ -666,7 +671,9 @@ const Home = () => {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
               >
-                <h3 className="font-cormorant text-3xl md:text-4xl text-white leading-none mb-2 drop-shadow-lg font-bold uppercase">
+                <h3 
+                style={{ fontFamily: "var(--font-bebas)" }}
+                className="text-3xl md:text-4xl text-white leading-none mb-2 drop-shadow-lg font-bold uppercase">
                   {tours[activeIndex].title}
                 </h3>
 
@@ -679,10 +686,6 @@ const Home = () => {
                     <FaRegClock className="text-gold" />{" "}
                     {tours[activeIndex].duration}
                   </span>
-
-                  <span className="flex items-center gap-2">
-                    From {tours[activeIndex].price}
-                  </span>
                 </div>
 
                 <Link
@@ -693,6 +696,80 @@ const Home = () => {
                 </Link>
               </motion.div>
             </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* --- TESTIMONIALS SCROLLING SECTION --- */}
+      <section className="relative py-24 bg-black overflow-hidden border-t border-white/5">
+        {/* Background Gradients for Marquee Fade Effect */}
+        <div className="absolute top-0 left-0 h-full w-24 md:w-64 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute top-0 right-0 h-full w-24 md:w-64 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto px-6 mb-16 relative z-10 text-center">
+          <span className="font-sans text-xs uppercase tracking-[0.4em] text-earth-green">
+            Voices of the Wild
+          </span>
+          <h2 className="font-bold text-4xl sm:text-5xl text-white leading-[1.2] mt-4">
+            CLIENT <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]">TESTIMONIALS</span>
+          </h2>
+        </div>
+
+        {/* Infinite Marquee */}
+        <div className="flex overflow-hidden relative">
+          <motion.div
+            className="flex gap-6 pl-6"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{
+              repeat: Infinity,
+              duration: 85, // Adjust speed (higher number = slower)
+              ease: "linear",
+            }}
+          >
+            {/* Duplicating array 3 times to ensure smooth loop without gaps */}
+            {[...reviews, ...reviews, ...reviews].map((review, index) => (
+              <div
+                key={`${review.id}-${index}`}
+                className="relative w-[350px] md:w-[450px] flex-shrink-0 bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300 group"
+              >
+                {/* Quote Icon */}
+                <FaQuoteLeft className="text-4xl text-earth-green/20 mb-6 absolute top-6 right-6" />
+
+                <div className="flex gap-1 mb-6 text-yellow-500 text-sm">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      fill="currentColor"
+                      className="w-4 h-4"
+                      strokeWidth={0}
+                    />
+                  ))}
+                </div>
+
+                <p className="font-lora text-gray-300 text-lg leading-relaxed italic mb-8 relative z-10">
+                  "{review.text}"
+                </p>
+
+                <div className="flex items-center gap-4 mt-auto">
+                 {/*  <div className="relative w-12 h-12 rounded-full overflow-hidden border border-white/20">
+                    <Image
+                      src={review.image}
+                      alt={review.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div> */}
+                  <div>
+                    <h4 className="font-bebas text-xl text-white tracking-wide">
+                      {review.name}
+                    </h4>
+                    <p className="font-sans text-xs text-earth-green uppercase tracking-wider">
+                      {review.location}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </motion.div>
         </div>
       </section>

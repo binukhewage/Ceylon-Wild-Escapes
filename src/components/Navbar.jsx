@@ -99,7 +99,7 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div ref={navRef} className="hidden lg:flex items-center space-x-1">
+          <div ref={navRef} className="hidden lg:flex items-center space-x-1 font-bold">
             {navItems.map((item) => {
               const isActive = activePath === item.path;
               return (
@@ -149,7 +149,7 @@ const Navbar = () => {
               }}
             >
               <FaSafari className="text-md" />
-              <span>BOOK TOUR</span>
+              <span className="font-bold">BOOK TOUR</span>
             </Link>
           </motion.div>
 
