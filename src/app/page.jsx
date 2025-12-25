@@ -90,7 +90,7 @@ const tours = [
     type: "Luxury",
     title: "Northern Wild",
     subtitle: "Untamed North",
-    heroImage: "/images/minneriya-d.jpg",
+    heroImage: "/images/nwt-b.jpg",
     duration: "14 Days",
     price: "$5,999",
     intro: "Luxury wildlife expedition across Sri Lanka's top national parks.",
