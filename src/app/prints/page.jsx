@@ -121,7 +121,9 @@ const PrintsPage = () => {
             className="font-kolker text-5xl md:text-7xl leading-[0.75] text-white mb-6 drop-shadow-2xl">
               WILD <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]">PRINTS</span>
             </h1>
-            <p className="font-lora text-gray-300 text-sm md:text-lg max-w-xl mx-auto leading-relaxed drop-shadow-md">
+            <p 
+            style={{ fontFamily: "var(--font-montserrat)" }}
+            className="font-lora text-gray-300 text-sm md:text-lg max-w-xl mx-auto leading-relaxed drop-shadow-md">
               Own a piece of the untamed. Museum-quality prints for the modern collector.
             </p>
           </motion.div>

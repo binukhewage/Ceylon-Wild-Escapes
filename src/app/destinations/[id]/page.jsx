@@ -119,7 +119,9 @@ export default function DestinationPage() {
             transition={{ delay: 0.3, duration: 0.8 }}
           >
             <FaMapMarkerAlt className="mr-2 text-red-600" />
-            <span className="font-montserrat">{destination.location}</span>
+            <span 
+            
+            className="font-montserrat">{destination.location}</span>
           </motion.div>
         </div>
       </div>

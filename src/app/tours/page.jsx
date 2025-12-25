@@ -1,12 +1,12 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   FaMapMarkerAlt,
   FaArrowRight,
   FaClock,
   FaQuoteRight,
 } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Bebas_Neue, Lora, Montserrat, Cormorant_Garamond } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
@@ -32,16 +32,48 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
 });
 
+// --- COMPONENT: Premium Filter Bar ---
+const FilterBar = ({ activeFilter, setActiveFilter }) => {
+  const filters = ["All", "Premium", "Luxury"];
+
+  return (
+    <div className="flex justify-center mb-24 relative z-20">
+      <div className="inline-flex items-center gap-2 md:gap-4 p-1 bg-white/5 backdrop-blur-md rounded-full border border-white/10 shadow-2xl">
+        {filters.map((filter) => (
+          <button
+            key={filter}
+            onClick={() => setActiveFilter(filter)}
+            className={`
+              relative px-6 py-2 rounded-full text-xs md:text-sm font-montserrat uppercase tracking-[0.2em] transition-all duration-300
+              ${activeFilter === filter ? "text-black" : "text-gray-400 hover:text-white"}
+            `}
+          >
+            {activeFilter === filter && (
+              <motion.div
+                layoutId="activeFilter"
+                className="absolute inset-0 bg-[#4a7c59] rounded-full"
+                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+              />
+            )}
+            <span className="relative z-10">{filter}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 // --- COMPONENT: The Overlapping Editorial Card ---
 const EditorialTour = ({ tour, index }) => {
   const isEven = index % 2 === 0;
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 100 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-10%" }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      layout
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       className="relative mb-32 md:mb-48 last:mb-0"
     >
       {/* 0. Background Number Watermark */}
@@ -68,7 +100,7 @@ const EditorialTour = ({ tour, index }) => {
               <div className={`absolute top-8 ${isEven ? "right-8" : "left-8"} hidden md:block`}>
                  <div className="flex flex-col gap-6">
                     <span className="writing-vertical-lr text-[10px] font-montserrat uppercase tracking-[0.3em] text-white/80 border-l border-white/30 pl-3 h-24 flex items-center">
-                       {tour.type || "Premium Collection"}
+                       {tour.type} Collection
                     </span>
                  </div>
               </div>
@@ -100,7 +132,7 @@ const EditorialTour = ({ tour, index }) => {
               {tour.title}
             </span>
             <span className="block font-montserrat text-sm uppercase tracking-[0.3em] mt-1 text-gray-400">
-              {tour.subtitle || "Exclusive Wildlife Journey"}
+              {tour.subtitle}
             </span>
           </h2>
 
@@ -114,7 +146,7 @@ const EditorialTour = ({ tour, index }) => {
 
           {/* Description */}
           <p className="font-lora text-sm text-gray-400 leading-relaxed mb-8 line-clamp-3 md:line-clamp-4">
-             {tour.description || "Experience the thrill of tracking leopards in Yala, watching elephants gather in Minneriya, and relaxing in luxury eco-lodges deep within the jungle."}
+             {tour.description}
           </p>
 
           {/* Action */}
@@ -138,8 +170,13 @@ const EditorialTour = ({ tour, index }) => {
 
 // --- MAIN PAGE ---
 const TourPage = () => {
-  // Organizing tours
-  const premiumTours = tours.filter((tour) => tour.type === "premium" || tour.type === "luxury" || !tour.type);
+  const [activeFilter, setActiveFilter] = useState("All");
+
+  // Filter Logic
+  const filteredTours = tours.filter((tour) => {
+    if (activeFilter === "All") return true;
+    return tour.type === activeFilter;
+  });
   
   return (
     <div className={`${bebas.variable} ${lora.variable} ${montserrat.variable} ${cormorant.variable} min-h-screen bg-[#050505] text-white`}>
@@ -150,11 +187,11 @@ const TourPage = () => {
         }
       `}</style>
 
-      {/* --- HERO SECTION (PRESERVED) --- */}
+      {/* --- HERO SECTION --- */}
       <div className="relative h-[50vh] w-full overflow-hidden bg-black">
         <div className="absolute inset-0 wildlife-texture opacity-30"></div>
         <Image
-          src="/images/about1.jpg"
+          src="/images/itebanner.jpg"
           alt="Wildlife photography tours"
           fill
           className="object-cover opacity-70"
@@ -169,11 +206,12 @@ const TourPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <span className=" text-white">TRAVEL</span>
+            <span className=" text-white">TOUR</span>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]"> ITINERARIES</span>
           </motion.h1>
           <motion.p
-            className="font text-lg max-w-3xl text-gray-200 leading-relaxed"
+            style={{ fontFamily: "var(--font-montserrat)" }}
+            className="text-lg max-w-3xl text-gray-200 leading-relaxed"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
@@ -185,20 +223,28 @@ const TourPage = () => {
       </div>
 
       {/* --- THE COLLECTION --- */}
-      <div className="relative pt-24 pb-32">
+      <div className="relative pt-12 pb-32">
         {/* Glow Effects */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#4a7c59] rounded-full mix-blend-screen filter blur-[200px] opacity-10 pointer-events-none"></div>
 
-        {/* CONTAINER WITH THE "GAP" (max-w-7xl) */}
         <div className="max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20 relative z-10">
           
-          
+          {/* FILTER BAR */}
+          <FilterBar activeFilter={activeFilter} setActiveFilter={setActiveFilter} />
 
           {/* TOUR LIST */}
           <div className="flex flex-col">
-            {premiumTours.map((tour, index) => (
-              <EditorialTour key={tour.id} tour={tour} index={index} />
-            ))}
+            <AnimatePresence mode="wait">
+              {filteredTours.map((tour, index) => (
+                <EditorialTour key={tour.id} tour={tour} index={index} />
+              ))}
+            </AnimatePresence>
+            
+            {filteredTours.length === 0 && (
+              <div className="text-center py-20 text-gray-500 font-montserrat uppercase tracking-widest text-sm">
+                No tours found in this collection.
+              </div>
+            )}
           </div>
 
         </div>

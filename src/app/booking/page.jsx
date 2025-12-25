@@ -103,7 +103,9 @@ const BookingForm = () => {
             className="font-kolker text-5xl md:text-7xl leading-[1.2] text-white mb-6 drop-shadow-2xl">
               RESERVE <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]">YOUR SPOT</span>
             </h1>
-            <p className="font-lora text-gray-300 text-sm md:text-lg max-w-xl mx-auto leading-relaxed drop-shadow-md">
+            <p 
+            style={{ fontFamily: "var(--font-montserrat)" }}
+            className="font-lora text-gray-300 text-sm md:text-lg max-w-xl mx-auto leading-relaxed drop-shadow-md">
               Secure your place on an exclusive wildlife photography adventure. 
               Limited availability for the upcoming season.
             </p>
