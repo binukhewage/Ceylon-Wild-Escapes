@@ -20,6 +20,7 @@ import {
   FaTag,
   FaRegClock,
   FaQuoteLeft,
+  FaTiktok
 } from "react-icons/fa";
 import { Bebas_Neue, Lora, Montserrat, Kolker_Brush } from "next/font/google";
 import { Star } from "lucide-react";
@@ -128,10 +129,10 @@ const teamMembers = [
     bio: "I'm Roshan Peiris, a Sri Lankan wildlife and nature photographer. Since 2019, my passion for capturing Sri Lanka's untamed beauty has grown into a full-time pursuit. After dedicating myself entirely to wildlife photography in 2024, I now guide wildlife photo safaris to share the magical experience of nature with enthusiasts.",
     image: "/images/rpei.jpg",
     social: {
-      instagram: "https://instagram.com/roshan",
-      facebook: "https://facebook.com/roshan",
-      twitter: "https://twitter.com/roshan",
-    },
+        instagram: "https://www.instagram.com/ceylonwildescapes",
+        facebook: "https://www.facebook.com/share/1HdMuTRY9P/?mibextid=wwXIfr",
+        tiktok: "https://www.tiktok.com/@ceylonwildescapes?_r=1&_t=ZS-92Z7UqDR7tR",
+      },
   },
 ];
 
@@ -163,7 +164,7 @@ const cards = [
     title: "Destinations",
     subtitle: "Explore iconic habitats",
     icon: <FaMapMarkerAlt className="text-xl" />,
-    image: "/images/wilpattu.jpg",
+    image: "/images/hp.jpg",
     link: "/destinations",
     stats: "06+ Locations",
     description:
@@ -364,7 +365,7 @@ const Home = () => {
           <span className="font-sans text-xs uppercase tracking-[0.4em] text-earth-green">
             The Visionary
           </span>
-          <h2 className="font-semibold text-4xl sm:text-5xl text-white leading-[1.2] mb-6">
+          <h2 className=" text-4xl sm:text-5xl text-white leading-[1.2] mb-6">
             BEHIND <br className="md:hidden" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]">
               THE LENSE
@@ -462,7 +463,7 @@ const Home = () => {
                   <div className="h-8 w-[1px] bg-white/10 hidden sm:block"></div>
 
                   <div className="flex gap-4">
-                    {["instagram", "facebook", "twitter"].map((platform, i) => (
+                    {["instagram", "facebook", "tiktok"].map((platform, i) => (
                       <a
                         key={i}
                         href={teamMembers[0].social[platform]}
@@ -471,7 +472,7 @@ const Home = () => {
                         <span className="text-gray-400 group-hover:text-[#4a7c59] text-sm transition-colors">
                           {platform === "instagram" && <FaInstagram />}
                           {platform === "facebook" && <FaFacebook />}
-                          {platform === "twitter" && <FaTwitter />}
+                          {platform === "tiktok" && <FaTiktok />}
                         </span>
                       </a>
                     ))}
@@ -490,7 +491,7 @@ const Home = () => {
             <span className="font-sans text-xs uppercase tracking-[0.4em] text-earth-green">
               Our Expertise
             </span>
-            <h2 className="font-semibold text-4xl sm:text-5xl text-white leading-[1.2] mb-6">
+            <h2 className=" text-4xl sm:text-5xl text-white leading-[1.2] mb-6">
               PREMIUM <br className="md:hidden" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]">
                 WILDLIFE EXPERIENCES
@@ -514,7 +515,7 @@ const Home = () => {
                     fill
                     className="object-cover transition-transform duration-1000 ease-out group-hover:scale-110 opacity-70 group-hover:opacity-50"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-90 transition-opacity duration-500 group-hover:opacity-100" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/0 to-transparent opacity-90 transition-opacity duration-500 group-hover:opacity-100" />
                 </div>
                 <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 z-20">
                   <div className="absolute top-6 left-6 right-6 flex justify-between items-start opacity-0 group-hover:opacity-100 transition-all duration-500 transform -translate-y-4 group-hover:translate-y-0">
@@ -568,7 +569,7 @@ const Home = () => {
           <span className="font-sans text-xs uppercase tracking-[0.4em] text-earth-green">
             Curated Itineraries
           </span>
-          <h2 className="font-semibold text-4xl sm:text-5xl text-white leading-[1.2] mb-6">
+          <h2 className="text-4xl sm:text-5xl text-white leading-[1.2] mb-6">
             SIGNATURE <br className="md:hidden" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]">
               TOURS
@@ -710,7 +711,7 @@ const Home = () => {
           <span className="font-sans text-xs uppercase tracking-[0.4em] text-earth-green">
             Voices of the Wild
           </span>
-          <h2 className="font-bold text-4xl sm:text-5xl text-white leading-[1.2] mt-4">
+          <h2 className="text-4xl sm:text-5xl text-white leading-[1.2] mt-4">
             CLIENT <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]">TESTIMONIALS</span>
           </h2>
         </div>

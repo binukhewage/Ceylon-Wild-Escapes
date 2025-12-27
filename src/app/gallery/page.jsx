@@ -79,10 +79,12 @@ const galleryItems = [
   { id: 36, src: "/images/d10.jpg", category: "Deer", title: "Graceful Leap", type: "color" },
 
   // Other Animals
+  { id: 51, src: "/images/o1.jpg", category: "other", title: "Curious Primate", type: "color" },
   { id: 11, src: "/images/m1.jpg", category: "other", title: "Curious Primate", type: "color" },
   { id: 12, src: "/images/m3.jpg", category: "other", title: "Curious Primate", type: "color" },
   { id: 13, src: "/images/m2.jpg", category: "other", title: "Curious Primate", type: "color" },
   { id: 14, src: "/images/m4.jpg", category: "other", title: "Curious Primate", type: "color" },
+  
 ];
 
 // --- Categories for Filter ---

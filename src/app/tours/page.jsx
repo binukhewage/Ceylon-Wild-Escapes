@@ -5,6 +5,9 @@ import {
   FaArrowRight,
   FaClock,
   FaQuoteRight,
+  FaSlidersH,
+  FaShip,
+  FaPlane,
 } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bebas_Neue, Lora, Montserrat, Cormorant_Garamond } from "next/font/google";
@@ -191,7 +194,7 @@ const TourPage = () => {
       <div className="relative h-[50vh] w-full overflow-hidden bg-black">
         <div className="absolute inset-0 wildlife-texture opacity-30"></div>
         <Image
-          src="/images/itebanner.jpg"
+          src="/images/itenary-b.jpg"
           alt="Wildlife photography tours"
           fill
           className="object-cover opacity-70"
@@ -245,6 +248,95 @@ const TourPage = () => {
                 No tours found in this collection.
               </div>
             )}
+          </div>
+
+          {/* =========================================
+              4. NEW SECTION: CONCIERGE SERVICES (3 Tiles)
+             ========================================= */}
+          <div className="pt-32">
+            <div className="text-center mb-12">
+              <p className="font-montserrat text-[10px] uppercase tracking-[0.3em] text-[#4a7c59] mb-3">
+                Concierge Services
+              </p>
+              <h2 className=" uppercase text-3xl md:text-5xl text-white leading-none">
+                Tailored <span className="text-[#4a7c59]">For You</span>
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Tile 1: Customization */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="group relative bg-[#0a0a0a] border border-white/10 rounded-xl p-8 hover:border-[#4a7c59]/50 transition-all duration-500 overflow-hidden"
+              >
+                <div className="w-12 h-12 rounded-full bg-[#4a7c59]/10 flex items-center justify-center text-[#4a7c59] mb-6 border border-[#4a7c59]/20 group-hover:scale-110 transition-transform">
+                  <FaSlidersH className="text-lg" />
+                </div>
+                <h3 className="font-bold uppercase text-2xl text-white mb-3">
+                  Customizable Tours
+                </h3>
+                <p className="font-lora text-gray-400 text-sm leading-relaxed">
+                  Every itinerary is a blueprint. We can adjust duration,
+                  accommodation levels, and pacing to suit your specific travel
+                  style.
+                </p>
+              </motion.div>
+
+              {/* Tile 2: Excursions */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+                className="group relative bg-[#0a0a0a] border border-white/10 rounded-xl p-8 hover:border-[#4a7c59]/50 transition-all duration-500 overflow-hidden"
+              >
+                <div className="w-12 h-12 rounded-full bg-[#4a7c59]/10 flex items-center justify-center text-[#4a7c59] mb-6 border border-[#4a7c59]/20 group-hover:scale-110 transition-transform">
+                  <FaShip className="text-lg" />
+                </div>
+                <h3 className="font-bold text-2xl text-white mb-3 uppercase">
+                  Excursions
+                </h3>
+                <ul className="space-y-2 font-lora text-gray-400 text-sm">
+                  <li className="flex items-center gap-2">
+                    <div className="w-1 h-1 bg-[#4a7c59] rounded-full"></div>{" "}
+                    Whale Watching in Mirissa
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="w-1 h-1 bg-[#4a7c59] rounded-full"></div>{" "}
+                    Makandawa Rainforest Trek
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="w-1 h-1 bg-[#4a7c59] rounded-full"></div>{" "}
+                    White Water Rafting
+                  </li>
+                  <li className="italic text-xs opacity-60 mt-5">
+                    + More options available
+                  </li>
+                </ul>
+              </motion.div>
+
+              {/* Tile 3: Logistics */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+                className="group relative bg-[#0a0a0a] border border-white/10 rounded-xl p-8 hover:border-[#4a7c59]/50 transition-all duration-500 overflow-hidden"
+              >
+                <div className="w-12 h-12 rounded-full bg-[#4a7c59]/10 flex items-center justify-center text-[#4a7c59] mb-6 border border-[#4a7c59]/20 group-hover:scale-110 transition-transform">
+                  <FaPlane className="text-lg" />
+                </div>
+                <h3 className="font-bold uppercase text-2xl text-white mb-3">
+                  Flight & Visa Support
+                </h3>
+                <p className="font-lora text-gray-400 text-sm leading-relaxed">
+                  We assist with International Flight bookings and Tourist Visa
+                  (ETA) arrangements to ensure a seamless arrival experience.
+                </p>
+              </motion.div>
+            </div>
           </div>
 
         </div>

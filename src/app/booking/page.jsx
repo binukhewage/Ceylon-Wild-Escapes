@@ -218,9 +218,11 @@ const BookingForm = () => {
                       className="w-full bg-white/5 border border-white/10 rounded-lg pl-4 pr-10 py-4 text-white font-lora focus:outline-none focus:border-[#4a7c59] focus:bg-white/10 transition-all appearance-none cursor-pointer"
                     >
                       <option value="" className="bg-black text-gray-500">Select a journey...</option>
+                      <option value="pulli" className="bg-black">Pulli Trail</option>
+                      <option value="kurulu" className="bg-black">Kurulu Trail</option>
+                      <option value="urumaya" className="bg-black">Urumaya Trail</option>
                       <option value="northern" className="bg-black">Northern Wild Trail</option>
                       <option value="southern" className="bg-black">Southern Wild Trail</option>
-                      <option value="custom" className="bg-black">Custom Expedition</option>
                     </select>
                     <FaMapMarkerAlt className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-600 group-focus-within:text-[#4a7c59] transition-colors text-xs pointer-events-none" />
                   </div>
