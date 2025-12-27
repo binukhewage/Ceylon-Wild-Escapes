@@ -15,7 +15,16 @@ import {
   FaExpand,
   FaLayerGroup,
   FaHotel,
+  FaCheck,
+  FaSlidersH,
+  FaShip,
+  FaPlane,
+  FaArrowRight,
+  FaRoute,
+  FaTree,
+  FaMountain,
 } from "react-icons/fa";
+import { IoMdDownload } from "react-icons/io";
 import { Bebas_Neue, Lora, Montserrat, Kolker_Brush } from "next/font/google";
 
 // --- Font Setup ---
@@ -97,7 +106,6 @@ export default function TourDetails(props) {
 
   const galleryImages = tour.galleryImages || [tour.images[0], tour.images[1]];
 
-  // Use images from the tour array for the parts, falling back to gallery images if needed
   const getPartImage = (index) => {
     if (tour.images && tour.images[index + 1]) return tour.images[index + 1];
     return galleryImages[index % galleryImages.length];
@@ -161,13 +169,23 @@ export default function TourDetails(props) {
             </h1>
 
             <motion.p
-            style={{ fontFamily: "var(--font-montserrat)" }}
+              style={{ fontFamily: "var(--font-montserrat)" }}
+              className="flex items-center justify-center gap-2 text-md max-w-4xl text-gray-300 leading-relaxed"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+            >
+              <FaClock className="text-[#8fbc9d]" />
+              <span>{tour.duration}</span>
+            </motion.p>
+            <motion.p
+              style={{ fontFamily: "var(--font-montserrat)" }}
               className="font text-md max-w-4xl text-gray-300 leading-relaxed"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.8 }}
             >
-              {tour.intro}
+              {tour.focus}
             </motion.p>
           </motion.div>
         </div>
@@ -185,7 +203,7 @@ export default function TourDetails(props) {
           <div className="mb-6">
             <Link
               href="/tours"
-              className="group inline-flex items-center gap-3 font-montserrat text-[10px] uppercase tracking-[0.25em] text-white/80 hover:text-white transition-all px-5 py-2.5 rounded-full  backdrop-blur-md"
+              className="group inline-flex items-center gap-3 font-montserrat text-[10px] uppercase tracking-[0.25em] text-white/80 hover:text-white transition-all px-5 py-2.5 rounded-full backdrop-blur-md"
             >
               <FaChevronLeft className="text-[8px] group-hover:-translate-x-1 transition-transform" />
               <span>Back to Archives</span>
@@ -194,76 +212,209 @@ export default function TourDetails(props) {
 
           {/* --- TOP GRID: OVERVIEW --- */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-24">
-            {/* (Keep Overview & Map Cards same as previous) */}
+            {/* OVERVIEW CARD (UPDATED) */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
               className="lg:col-span-2 bg-[#111]/80 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl group flex flex-col"
             >
-              <div className="relative h-64 w-full overflow-hidden">
+              {/* Image Section */}
+              <div className="relative h-64 w-full overflow-hidden flex-shrink-0">
                 <Image
-                  src={tour.images[1] || tour.images[0]}
+                  src={tour.overviewImage || tour.images[0]}
                   alt={tour.title}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#111] via-transparent to-transparent opacity-90" />
-                
               </div>
-              <div className="p-6 relative flex-grow flex flex-col justify-between">
-                <div className="flex justify-between items-start mb-4 border-b border-white/10 pb-4">
-                  <h3 className="uppercase text-2xl text-white group-hover:text-[#4a7c59] transition-colors duration-300 tracking-wide">
+
+              {/* Content Section (Replaced Description with Inclusions/Exclusions) */}
+              <div className="p-6 sm:p-8 flex-grow flex flex-col">
+                {/* Header & Action Row */}
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8 pb-6 border-b border-white/5">
+                  <h3 className=" font-bold text-2xl text-white transition-colors duration-300 tracking-wide font-bebas">
                     Tour Overview
                   </h3>
-                  <div className="flex items-center gap-2 mt-1 text-gray-400">
-                    <FaClock className="text-[#4a7c59] text-xs" />
-                    <span className="font-montserrat text-[10px] uppercase tracking-widest">
-                      {tour.duration}
-                    </span>
-                  </div>
+                  
                 </div>
-                <div>
-                  <p className="font-montserrat text-[11px] uppercase tracking-[0.25em] text-[#4a7c59] mb-3">
-                    Highlights
-                  </p>
-                  <div className="grid grid-cols-2 gap-2">
-                    {tour.inclusions.slice(0, 4).map((item, i) => (
-                      <div key={i} className="flex items-start gap-2">
-                        <div className="w-1.5 h-1.5 mt-1.5 rounded-full bg-[#4a7c59] flex-shrink-0 shadow-[0_0_5px_#4a7c59]"></div>
-                        <span className="font-lora text-gray-300 text-sm leading-relaxed">
-                          {item}
-                        </span>
-                      </div>
-                    ))}
+
+                {/* INCLUSIONS & EXCLUSIONS GRID */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {/* Included Column */}
+                  <div>
+                    <h4 className="font-montserrat text-[10px] uppercase tracking-[0.2em] text-[#4a7c59] mb-4 font-bold flex items-center gap-2">
+                      <FaCheck /> This Tour Includes
+                    </h4>
+                    <ul className="space-y-3">
+                      {tour.inclusions.map((item, i) => (
+                        <li key={i} className="flex items-start gap-3">
+                          <div className="w-1.5 h-1.5 mt-2 rounded-full bg-[#4a7c59] flex-shrink-0 shadow-[0_0_5px_#4a7c59]"></div>
+                          <span className="font-lora text-gray-300 text-sm leading-snug">
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Excluded Column */}
+                  <div>
+                    <h4 className="font-montserrat text-[10px] uppercase tracking-[0.2em] text-gray-500 mb-4 font-bold flex items-center gap-2">
+                      <FaTimes className="text-red-500" /> This Tour Excludes
+                    </h4>
+                    <ul className="space-y-3">
+                      {tour.exclusions?.map((item, i) => (
+                        <li key={i} className="flex items-start gap-3">
+                          <div className="w-1.5 h-1.5 mt-2 rounded-full bg-gray-700 flex-shrink-0"></div>
+                          <span className="font-lora text-gray-400 text-sm leading-snug">
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                      {/* Default exclusions if none provided */}
+                      {!tour.exclusions && (
+                        <>
+                          <li className="flex items-start gap-3">
+                            <div className="w-1.5 h-1.5 mt-2 rounded-full bg-gray-700 flex-shrink-0"></div>
+                            <span className="font-lora text-gray-400 text-sm leading-snug">
+                              International Flights
+                            </span>
+                          </li>
+                          <li className="flex items-start gap-3">
+                            <div className="w-1.5 h-1.5 mt-2 rounded-full bg-gray-700 flex-shrink-0"></div>
+                            <span className="font-lora text-gray-400 text-sm leading-snug">
+                              Travel Insurance
+                            </span>
+                          </li>
+                          <li className="flex items-start gap-3">
+                            <div className="w-1.5 h-1.5 mt-2 rounded-full bg-gray-700 flex-shrink-0"></div>
+                            <span className="font-lora text-gray-400 text-sm leading-snug">
+                              Tips & Gratuities
+                            </span>
+                          </li>
+                        </>
+                      )}
+                    </ul>
                   </div>
                 </div>
               </div>
             </motion.div>
 
+            {/* ROUTE MAP CARD */}
+{/* ROUTE MAP CARD */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
-              className=" backdrop-blur-xl border border-white/10 rounded-md p-6 shadow-xl flex flex-col h-full"
+              className="backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl flex flex-col h-full bg-gradient-to-b from-[#0a0a0a] to-[#050505]"
             >
-              <h4 className="font-bold text-xl text-white mb-4 uppercase ">Route</h4>
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h4 className="font-bold text-2xl text-white mb-2 tracking-wide uppercase font-bebas">
+                    Route of {tour.title}
+                  </h4>
+                  <p className="font-montserrat text-xs text-white/70 uppercase tracking-widest">
+                    Key Destinations & Journey Map
+                  </p>
+                </div>
+                <div className="w-10 h-10 rounded-full bg-[#4a7c59]/10 flex items-center justify-center border border-[#4a7c59]/20">
+                  <FaRoute className="text-[#4a7c59]" />
+                </div>
+              </div>
+
+              {/* Interactive Map Section - NOW USING IMAGE */}
               <button
                 onClick={() => setIsMapModalOpen(true)}
-                className="relative w-full flex-grow min-h-[200px] rounded-xl overflow-hidden group  transition-all bg-[#050505]"
+                className="relative w-full h-64 rounded-xl overflow-hidden group transition-all border border-white/10 mb-6"
               >
+                {/* 1. Map Image Preview */}
                 <Image
-                  src="/images/route.png"
-                  alt="Route Map"
+                  src="/images/route.png" // Make sure this image exists in public/images
+                  alt="Sri Lanka Route Map"
                   fill
-                  className="object-contain p-4 transition-transform duration-500 group-hover:scale-105"
+                  className="object-contain object-center opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                 />
-                <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="font-montserrat text-[9px] uppercase tracking-[0.2em] font-bold text-white border border-white px-4 py-2 rounded-md hover:bg-white hover:text-black transition-all">
-                    View Map
-                  </span>
+
+                {/* 2. Dark Gradient Overlay (for text readability) */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"></div>
+
+                {/* 3. Hover Overlay (Call to Action) */}
+                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center backdrop-blur-[2px]">
+                  <div className="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                    <FaExpand className="text-white text-2xl mx-auto mb-3 opacity-80" />
+                    <span className="font-montserrat text-[10px] uppercase tracking-[0.2em] font-bold text-white bg-white/10 px-4 py-2 rounded-full border border-white/20">
+                      View Full Map
+                    </span>
+                  </div>
                 </div>
               </button>
+
+              {/* Destinations Section */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h5 className="font-bebas text-lg text-white tracking-wide">
+                    Key Destinations
+                  </h5>
+                </div>
+
+                {/* Destinations List */}
+                <div className="space-y-3">
+                  {(
+                    tour.destinations || [
+                      "Sinharaja Rain Forest Reserve",
+                      "Kumana National Park",
+                      "Nilgala Forest Reserve",
+                      "Horton Plains",
+                    ]
+                  ).map((destination, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 * index }}
+                      className="group flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-white/[0.02] to-transparent hover:from-white/[0.04] border border-white/5 hover:border-white/10 transition-all duration-300"
+                    >
+                      {/* Number Badge */}
+                      <div className="relative">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#4a7c59] to-[#8fbc9d] flex items-center justify-center font-montserrat font-bold text-xs text-white">
+                          {index + 1}
+                        </div>
+                      </div>
+
+                      {/* Destination Info */}
+                      <div className="flex-1 min-w-0">
+                        <p className="font-lora text-white text-sm truncate group-hover:text-[#8fbc9d] transition-colors">
+                          {destination}
+                        </p>
+                      </div>
+
+                      {/* Icon */}
+                      <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <FaMapMarkerAlt className="text-[#4a7c59]" />
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+                {/* Journey Stats */}
+                <div className="pt-4 mt-4 border-t border-white/5">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="text-center p-3 rounded-lg bg-white/[0.02] border border-white/5">
+                      <p className="font-montserrat text-[10px] uppercase tracking-widest text-white/50">
+                        Tour Style 
+                      </p>
+                      <p className="font-bebas text-white text-lg">Expedition</p>
+                    </div>
+                    <div className="text-center p-3 rounded-lg bg-white/[0.02] border border-white/5">
+                      <p className="font-montserrat text-[10px] uppercase tracking-widest text-white/50">
+                        Terrain
+                      </p>
+                      <p className="font-bebas text-white text-lg">Mixed</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </div>
 
@@ -272,18 +423,18 @@ export default function TourDetails(props) {
             <p className="font-montserrat text-[10px] uppercase tracking-[0.3em] text-[#4a7c59] mb-3">
               Journey Through Ceylon
             </p>
-            <h2 
-            
-            className=" font-bold uppercase text-3xl md:text-5xl text-white leading-none">
-              Detailed <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]">Itinerary</span>
+            <h2 className=" uppercase text-3xl md:text-5xl text-white leading-none">
+              Detailed{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]">
+                Itinerary
+              </span>
             </h2>
           </div>
 
-          {/* --- ITINERARY PARTS (New Layout with dedicated Images) --- */}
-          <div className="space-y-24">
+          {/* --- ITINERARY PARTS --- */}
+          <div className="space-y-24 mb-24">
             {tour.parts?.map((part, partIndex) => (
               <div key={partIndex} className="relative">
-                {/* Part Header */}
                 {part.name && (
                   <div className="flex items-center gap-4 mb-8">
                     <div className="w-12 h-[1px] bg-[#4a7c59]"></div>
@@ -293,13 +444,11 @@ export default function TourDetails(props) {
                   </div>
                 )}
 
-                {/* Split Grid for Part */}
                 <div
                   className={`grid grid-cols-1 lg:grid-cols-2 gap-8 items-start ${
                     partIndex % 2 === 1 ? "lg:flex-row-reverse" : ""
                   }`}
                 >
-                  {/* 1. Image Side (Alternating Order) */}
                   <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}
@@ -315,10 +464,7 @@ export default function TourDetails(props) {
                       fill
                       className="object-cover hover:scale-105 transition-transform duration-1000"
                     />
-                    {/* Overlay Gradient */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-
-                    {/* Decorative Label */}
                     <div className="absolute bottom-6 left-6 right-6">
                       <span className="font-bold uppercase text-lg text-white/50 drop-shadow-md">
                         {[
@@ -331,7 +477,6 @@ export default function TourDetails(props) {
                     </div>
                   </motion.div>
 
-                  {/* 2. Timeline Side */}
                   <div
                     className={`space-y-4 ${
                       partIndex % 2 === 1 ? "lg:order-1" : "lg:order-2"
@@ -349,9 +494,7 @@ export default function TourDetails(props) {
                         transition={{ delay: dayIndex * 0.1 }}
                         className="group relative pl-8 border-l border-white/10 hover:border-[#4a7c59] transition-colors duration-300"
                       >
-                        {/* Timeline Dot */}
                         <div className="absolute left-[-5px] top-6 w-2.5 h-2.5 rounded-full bg-[#111] border border-white/30 group-hover:bg-[#4a7c59] group-hover:border-[#4a7c59] group-hover:shadow-[0_0_10px_#4a7c59] transition-all z-10"></div>
-
                         <div className="bg-[#111]/60 backdrop-blur-md border border-white/5 rounded-xl p-6 hover:bg-white/[0.03] transition-all">
                           <div className="flex flex-col sm:flex-row sm:items-baseline gap-3 mb-3">
                             <span className="font-montserrat text-[#4a7c59] text-[10px] font-bold uppercase tracking-widest border border-[#4a7c59]/20 px-2 py-1 rounded bg-[#4a7c59]/5">
@@ -361,9 +504,16 @@ export default function TourDetails(props) {
                               {day.destination}
                             </span>
                           </div>
-                          <p className="font-lora text-gray-400 text-sm leading-relaxed pl-1 mb-4">
-                            {day.activities}
-                          </p>
+                          <div className="font-lora text-gray-400 text-sm leading-relaxed pl-1 mb-4 space-y-2">
+                            {Array.isArray(day.activities) ? (
+                              day.activities.map((activity, idx) => (
+                                <p key={idx}>{activity}</p>
+                              ))
+                            ) : (
+                              <p>{day.activities}</p>
+                            )}
+                          </div>
+
                           {day.accommodation && (
                             <div className="flex items-center gap-2 text-[10px] font-montserrat text-white/50 uppercase tracking-wider pl-1 border-t border-white/5 pt-3">
                               <FaHotel className="text-[#4a7c59]" />
@@ -378,26 +528,22 @@ export default function TourDetails(props) {
               </div>
             ))}
           </div>
-        </div>
-      </div>
 
-      {/* =========================================
-          3. VISUAL ARCHIVES (Gallery)
-         ========================================= */}
-      <div className="relative pb-24 border-t border-white/5 bg-black mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          
+
+          {/* =========================================
+              5. EXISTING SECTION: VISUAL ARCHIVES
+             ========================================= */}
+          <div className="mb-16 text-center">
             <p className="font-montserrat text-[10px] uppercase tracking-[0.3em] text-[#4a7c59] mb-3">
               UNFORGETTABLE SIGHTS
             </p>
-            <h2 
-            
-            className=" uppercase text-3xl md:text-5xl text-white leading-none">
+            <h2 className="uppercase text-3xl md:text-5xl text-white leading-none">
               what to see on <span className="text-[#4a7c59]">this tour</span>
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-32">
             {galleryImages.map((img, idx) => (
               <motion.div
                 key={idx}
@@ -421,30 +567,40 @@ export default function TourDetails(props) {
               </motion.div>
             ))}
           </div>
-        </div>
-        {/* --- FINAL CTA SECTION --- */}
-        <div className="mt-32 max-w-2xl mx-auto text-center">
-          <div className="bg-gradient-to-b from-[#4a7c59]/20 to-[#111]/80 backdrop-blur-xl border border-[#4a7c59]/30 rounded-3xl p-10 shadow-[0_0_50px_rgba(74,124,89,0.15)]">
-            <p className="font-montserrat text-[10px] uppercase tracking-[0.2em] text-[#4a7c59] mb-2">
-              Ready to explore?
-            </p>
-            <h4 className="font-bold uppercase text-3xl text-white mb-8">
-              Start Your Journey
-            </h4>
 
-            <Link
-              href="/booking"
-              className="group relative overflow-hidden inline-flex w-full sm:w-auto py-4 px-12 rounded-md bg-[#4a7c59] text-white font-montserrat text-xs uppercase tracking-[0.2em] font-bold shadow-lg shadow-[#4a7c59]/20 hover:shadow-[#4a7c59]/40 transition-all hover:-translate-y-1"
-            >
-              <span className="relative z-10 flex items-center justify-center gap-2">
-                Book Now <FaSafari />
-              </span>
-              <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-            </Link>
+          {/* =========================================
+              6. UPDATED FINAL CTA
+             ========================================= */}
+          <div className="mt-20 max-w-3xl mx-auto text-center">
+            <div className="relative bg-[#0d0d0c] border border-white/10 rounded-3xl p-12 overflow-hidden shadow-2xl group">
+              {/* Animated Gradient Border Effect */}
+              <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_50%_50%,_rgba(74,124,89,0.4),transparent_70%)]"></div>
 
-            <p className="mt-6 text-gray-500 font-lora text-xs italic">
-              *Limited availability for upcoming season.
-            </p>
+              <p className="font-montserrat text-[10px] uppercase tracking-[0.2em] text-[#4a7c59] mb-4 relative z-10">
+                Limited Availability
+              </p>
+              <h4 className="font-bebas text-2xl md:text-3xl text-white mb-8 relative z-10 uppercase">
+                Reserve Your{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]">
+                  Expedition
+                </span>
+              </h4>
+
+              <div className="flex flex-col sm:flex-row justify-center gap-4 relative z-10">
+                <Link
+                  href="/booking"
+                  className="group/btn relative overflow-hidden inline-flex items-center justify-center gap-3 py-4 px-10 rounded-md bg-[#4a7c59] text-white font-montserrat text-xs uppercase tracking-[0.2em] font-bold shadow-[0_0_30px_rgba(74,124,89,0.3)] hover:shadow-[0_0_50px_rgba(74,124,89,0.5)] transition-all hover:-translate-y-1"
+                >
+                  <span>Book This Tour</span>
+                  <FaArrowRight className="group-hover/btn:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+
+              <p className="mt-8 text-gray-500 font-lora text-xs italic relative z-10">
+                *Secure your spot for the upcoming season. No payment required
+                to inquire.
+              </p>
+            </div>
           </div>
         </div>
       </div>

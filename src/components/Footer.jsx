@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import logo from "/public/images/cwc.png" 
-import { FaInstagram, FaFacebook, FaYoutube, FaWhatsapp, FaArrowRight } from 'react-icons/fa'
+import { FaInstagram, FaFacebook, FaTiktok, FaWhatsapp, FaArrowRight } from 'react-icons/fa'
 import { Kolker_Brush, Lora, Montserrat } from "next/font/google";
 
 // --- Font Setup (Matching Hero/Nav) ---
@@ -66,16 +66,44 @@ const Footer = () => {
             </p>
 
             <div className="flex gap-4">
-              {[FaInstagram, FaFacebook, FaYoutube].map((Icon, i) => (
-                <a 
-                  key={i} 
-                  href="#" 
-                  className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-[#4a7c59] hover:border-[#4a7c59] transition-all duration-300 group"
-                >
-                  <Icon className="text-sm group-hover:scale-110 transition-transform" />
-                </a>
-              ))}
-            </div>
+  {[
+    {
+      Icon: FaInstagram,
+      label: "Instagram",
+      url: "https://instagram.com/ceylonwildescapes",
+    },
+    {
+      Icon: FaFacebook,
+      label: "Facebook",
+      url: "https://facebook.com/ceylonwildescapes",
+    },
+    {
+      Icon: FaTiktok,
+      label: "TikTok",
+      url: "https://tiktok.com/@ceylonwildescapes",
+    },
+  ].map(({ Icon, label, url }, i) => (
+    <a
+      key={i}
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Visit our ${label}`}
+      title={label}
+      className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 
+                 hover:text-white hover:bg-[#4a7c59] hover:border-[#4a7c59] 
+                 focus:outline-none focus:ring-2 focus:ring-[#4a7c59] focus:ring-offset-2 focus:ring-offset-black
+                 transition-all duration-300 group"
+    >
+      <Icon
+        className="text-sm group-hover:scale-110 transition-transform"
+        aria-hidden="true"
+      />
+      <span className="sr-only">{label}</span>
+    </a>
+  ))}
+</div>
+
           </div>
 
           {/* Column 2: Explore (Span 2 cols) */}
