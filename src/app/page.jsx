@@ -104,7 +104,7 @@ const tours = [
     type: "Luxury",
     title: "Southern Wild",
     subtitle: "Coastal Wilderness",
-    heroImage: "/images/yala.jpg",
+    heroImage: "/images/southernh.jpg",
     duration: "14 Days/13 Nights",
     price: "$5,999",
     intro: "Experience Sri Lanka's southern wilderness with luxury comfort.",

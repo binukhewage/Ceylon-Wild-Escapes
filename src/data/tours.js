@@ -590,6 +590,16 @@ export const tours = [
       "/images/minneriya-d.jpg",
       "/images/horton1.jpg",
     ],
+
+    galleryImages: [
+      "/images/urumaya1.jpg",
+      "/images/urumaya2.jpg",
+      "/images/urumaya3.jpg",
+      "/images/urumaya4.jpg",
+      "/images/urumaya5.jpg",
+      "/images/urumaya6.jpg",
+    ],
+
     highlights: [
       "Wilpattu Leopards",
       "Minneriya Elephants",
@@ -737,7 +747,21 @@ export const tours = [
     price: "$5,999",
     intro: "Experience Sri Lanka's southern wilderness with luxury comfort. From the misty heights of Horton Plains to the remote coastal wetlands of Kumana and the leopard-dense Yala.",
     
-    images: ["/images/kumana.jpg", "/images/kumana1.jpg", "/images/yala.jpg"],
+    images: [
+      "/images/southerncard.jpg", 
+      "/images/kumana1.jpg", 
+      "/images/yala.jpg"
+    ],
+
+    galleryImages: [
+      "/images/urumaya1.jpg",
+      "/images/urumaya2.jpg",
+      "/images/urumaya3.jpg",
+      "/images/urumaya4.jpg",
+      "/images/urumaya5.jpg",
+      "/images/urumaya6.jpg",
+    ],
+
     highlights: [
       "Yala Leopards",
       "Kumana Birdlife",
