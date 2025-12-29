@@ -108,7 +108,7 @@ const About = () => {
 
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/about1.jpg" // Ensure path is correct
+            src="/images/about-b1.jpg" // Ensure path is correct
             alt="Wildlife photography"
             fill
             className="object-cover opacity-60 bg-black/30"
@@ -159,7 +159,7 @@ const About = () => {
                 JOURNEY <span className="text-[#4a7c59]">BEYOND</span> THE MAP
               </h2>
 
-              <div className="font-lora text-gray-400 text-lg leading-relaxed space-y-6 border-l border-white/10 pl-6 md:pl-10">
+              <div className="font-lora text-gray-400 text-lg leading-relaxed space-y-6 border-l border-white/10 pl-6 md:pl-10 text-justify">
                 <p>
                   We believe a safari should be more than just a sighting; it
                   should be a deep immersion. Our journeys are meticulously
@@ -169,7 +169,7 @@ const About = () => {
                   animal behavior, and chase the perfect light alongside a guide
                   who shares that same fire.
                 </p>
-                <p>
+                <p className="text-justify">
                   We don’t just "visit" parks we traverse distinct ecological
                   zones, from the misty high-altitude plateaus to the dense
                   primary rainforests, ensuring you experience the fullest
@@ -308,7 +308,7 @@ const About = () => {
                 Roshan’s Journey from Sales Fields and Boardrooms to the Wild
               </h3>
 
-              <div className="space-y-6 mb-10">
+              <div className="space-y-6 mb-10 text-justify">
                 {teamMembers[0].bio.map((paragraph, index) => (
                   <p
                     key={index}
@@ -394,7 +394,7 @@ const About = () => {
                 <h3 className="font-bebas text-3xl text-white mb-3">
                   Photographer-Led Expertise
                 </h3>
-                <p className="font-lora text-gray-400 max-w-lg">
+                <p className="font-lora text-gray-400 max-w-lg text-justify">
                   We understand the unique needs of photographers, from modified
                   vehicles and unobstructed shooting positions to precisely
                   timing park entries and exits to capture the best natural
@@ -477,7 +477,7 @@ const About = () => {
               <h3 className="font-bebas text-2xl text-white mb-2">
                 Small-Group Intimacy
               </h3>
-              <p className="font-lora text-sm text-gray-400">
+              <p className="font-lora text-sm text-gray-400 text-justify">
                 We prioritize quality over quantity by operating with small,
                 private groups, allowing for flexibility in the field, quieter
                 encounters with wildlife, and a more personal, unhurried
@@ -497,7 +497,7 @@ const About = () => {
               <h3 className="font-bebas text-2xl text-white mb-2">
                 Sustainable Storytelling
               </h3>
-              <p className="font-lora text-sm text-gray-400">
+              <p className="font-lora text-sm text-gray-400 text-justify">
                 Every journey is guided by ethical wildlife practices,
                 respectful distances, and conservation-first principles,
                 ensuring our presence supports local communities and contributes

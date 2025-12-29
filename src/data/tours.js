@@ -13,15 +13,16 @@ export const tours = [
     focus: "Big Cat Tracking, Dry Zone Safaris, Highland Cloud Forests and Coastal Wilderness",
     description: "A dedicated safari journey focused on tracking the elusive Sri Lankan Leopard across four key habitats Wilpattu, Kumana, Horton Plains, and Yala featuring ten expertly curated safaris designed to maximize sightings and immerse you in the wild heart of Ceylon.",
     
-    heroImage: "/images/we.jpg",
+    heroImage: "/images/pullibanner.jpg",
     overviewImage: "/images/l2.jpg",
+    routeimage: "/images/route.png",
     
     duration: "15 Days / 14 Nights",
     price: "$5,999",
     intro: "Track Sri Lanka’s apex predator across its four major habitats: Wilpattu, Horton Plains, Kumana, and Yala. Includes 10 safari opportunities with expert leopard trackers.",
     
     images: [
-      "/images/wilpattu-dd.jpg", 
+      "/images/pullicard1.jpg", 
       "/images/d1.jpg", 
       "/images/a1.jpg", 
       "/images/a3.jpg",
@@ -174,12 +175,13 @@ export const tours = [
     
     heroImage: "/images/hero12.jpg",
     overviewImage: "/images/sinharaja-d.webp",
+    routeimage: "/images/route01.png",
     duration: "15 Days / 14 Nights",
     price: "$5,499",
     intro: "A deep dive into Sri Lanka’s richest biodiversity hotspots including Sinharaja, Kumana, Gal Oya, and Horton Plains. A perfect expedition for endemic bird watchers and nature photographers.",
     
     images: [
-      "/images/kumana.jpg",
+      "/images/kurulucard3.jpg",
       "/images/sinharaja-d.webp",
       "/images/kumana.jpg",
     ],
@@ -358,13 +360,32 @@ export const tours = [
     focus: "Culture, History (Ancient Cities), Highland Tea Country, Wildlife, and Southern Coast",
     description: "This expedition connects the cultural heartland of Sri Lanka (Anuradhapura, Habarana, Kandy) with the temperate highlands (Nuwara Eliya, Horton Plains), premier wildlife viewing (Yala), and the relaxing beaches of the South (Hikkaduwa/Galle).",
     
-    heroImage: "/images/we.jpg",
-    overviewImage: "/images/anu.jpeg",
+    heroImage: "/images/urumayabanner.jpg",
+    overviewImage: "/images/urumayaoverview.jpg",
+    routeimage: "/images/route02.png",
     duration: "14 Days / 13 Nights",
     price: "$4,999",
     intro: "A perfect blend of culture, history, wildlife, tea country, and coastal relaxation. Visit ancient cities, go on safaris, explore rainforests, and unwind on golden beaches.",
     
-    images: ["/images/anu.jpeg", "/images/minneriya.jpg", "/images/yala1.jpg"],
+    images: 
+    
+    [
+      "/images/urumayacard1.jpeg",      // not in use
+      "/images/urumayap1.jpeg",  //part1
+      "/images/urumayap2.jpg",   // part2
+      "/images/galle7.jpg",  //part 3
+
+    ],
+
+    galleryImages: [
+      "/images/urumaya1.jpg",
+      "/images/urumaya2.jpg",
+      "/images/urumaya3.jpg",
+      "/images/urumaya4.jpg",
+      "/images/urumaya5.jpg",
+      "/images/urumaya6.jpg",
+    ],
+
     highlights: [
       "Anuradhapura Ancient City",
       "Sigiriya & Pidurangala",
@@ -377,7 +398,6 @@ export const tours = [
     parts: [
       {
         name: "PART 1: Arrival and The Cultural Triangle (Day 1-4)",
-        image: "/images/anu.jpeg",
         days: [
           {
             day: "Day 1",
@@ -421,7 +441,6 @@ export const tours = [
 
       {
         name: "PART 2: The Hill Country (Day 5–8)",
-        image: "/images/horton1.jpg",
         days: [
           {
             day: "Day 5",
@@ -561,12 +580,13 @@ export const tours = [
     
     heroImage: "/images/nwt-b.jpg",
     overviewImage: "/images/minneriya-d.jpg",
+    routeimage: "/images/route03.png",
     duration: "14 Days / 13 Nights",
     price: "$5,999",
     intro: "Luxury wildlife expedition across Sri Lanka's top national parks, featuring Wilpattu's leopards, the Great Elephant Gathering, and cloud forest biodiversity.",
     
     images: [
-      "/images/nwt-b.jpg",
+      "/images/notherncard2.jpg",
       "/images/minneriya-d.jpg",
       "/images/horton1.jpg",
     ],
@@ -712,6 +732,7 @@ export const tours = [
     
     heroImage: "/images/kumana.jpg", 
     overviewImage: "/images/yala.jpg",
+    routeimage: "/images/route04.png",
     duration: "14 Days / 13 Nights",
     price: "$5,999",
     intro: "Experience Sri Lanka's southern wilderness with luxury comfort. From the misty heights of Horton Plains to the remote coastal wetlands of Kumana and the leopard-dense Yala.",

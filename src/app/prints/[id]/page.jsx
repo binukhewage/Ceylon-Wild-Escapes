@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
-import { FaShoppingCart, FaHeart, FaArrowLeft } from "react-icons/fa";
+// 1. Added FaWhatsapp to imports
+import { FaShoppingCart, FaHeart, FaArrowLeft, FaWhatsapp } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Bebas_Neue, Lora, Montserrat } from "next/font/google";
 import Link from "next/link";
@@ -16,30 +17,12 @@ const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-montserrat
 export default function PrintDetailsPage() {
   const { id } = useParams();
   const print = printsData.find((p) => p.id === parseInt(id));
+  
+  // State for selections
   const [selectedSize, setSelectedSize] = useState(print?.size || "24x36 inches");
   const [selectedMaterial, setSelectedMaterial] = useState(print?.medium || "Premium Matte Paper");
   const [selectedFrame, setSelectedFrame] = useState("Unframed");
   const [isInWishlist, setIsInWishlist] = useState(false);
-
-  // Price calculation based on selections
-  const calculatePrice = () => {
-    let basePrice = print?.price || 0;
-    
-    // Size adjustments
-    if (selectedSize === "18x24 inches") basePrice -= 50;
-    if (selectedSize === "30x40 inches") basePrice += 100;
-    
-    // Material adjustments
-    if (selectedMaterial === "Glossy Fine Art Paper") basePrice += 25;
-    if (selectedMaterial === "Canvas Texture") basePrice += 75;
-    
-    // Frame adjustments
-    if (selectedFrame === "Black Frame") basePrice += 150;
-    if (selectedFrame === "Wood Frame") basePrice += 200;
-    if (selectedFrame === "White Frame") basePrice += 150;
-    
-    return basePrice;
-  };
 
   if (!print) {
     return (
@@ -58,15 +41,26 @@ export default function PrintDetailsPage() {
     setIsInWishlist(!isInWishlist);
   };
 
-  const addToCart = () => {
-    // Add to cart logic here
-    console.log('Added to cart:', {
-      print,
-      selectedSize,
-      selectedMaterial,
-      selectedFrame,
-      finalPrice: calculatePrice()
-    });
+  // 2. WhatsApp Logic
+  const handleWhatsAppInquiry = () => {
+    const phoneNumber = "94779904228"; // No spaces or + sign
+    
+    // Construct the message
+    const message = `Hello! I am interested in purchasing a print.
+    
+Details:
+• Title: ${print.title}
+• Size: ${selectedSize}
+• Material: ${selectedMaterial}
+• Frame: ${selectedFrame}
+
+Could you please confirm the price and availability?`;
+
+    // Create the WhatsApp URL
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    
+    // Open in new tab
+    window.open(url, '_blank');
   };
 
   return (
@@ -82,25 +76,18 @@ export default function PrintDetailsPage() {
         .hover\\:bg-earth-green:hover { background-color: #4a7c59; }
         .hover\\:text-earth-green:hover { color: #4a7c59; }
         .border-earth-green { border-color: #4a7c59; }
-        .from-earth-green { --tw-gradient-from: #4a7c59; --tw-gradient-to: rgba(74, 124, 89, 0); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
-        .to-earth-green-light { --tw-gradient-to: #8a9b68; }
         .wildlife-texture { background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%234a7c59' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E"); }
         
-        /* Custom select styles */
         .custom-select {
           background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234a7c59'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E") no-repeat right 1rem center;
           background-size: 1rem;
           appearance: none;
           padding-right: 3rem;
         }
-        
-        .custom-select:focus {
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b8e23'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-        }
       `}</style>
 
       <div className="relative bg-black py-25 px-4 sm:px-6 lg:px-8 overflow-hidden wildlife-texture">
-        <div className="max-w-7xl mx-auto relative z-10">
+        <div className="max-w-[1400px] mx-auto relative z-10">
           {/* Back Button */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -117,24 +104,27 @@ export default function PrintDetailsPage() {
           </motion.div>
 
           {/* Main Content */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            
             {/* Image Section */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7 }}
+              className="lg:col-span-8 flex justify-center bg-black/20 rounded-sm"
             >
-              <div className="relative w-full aspect-[4/3] rounded-sm overflow-hidden border border-gray-800 bg-[#0D0D0C]">
+              <div className="relative w-full h-[65vh] lg:h-[80vh] rounded-sm overflow-hidden shadow-2xl">
                 <Image
                   src={print.image}
                   alt={print.title}
                   fill
-                  className="object-cover"
+                  className="object-contain p-1" 
                   priority
+                  sizes=" 100vw, 70vw"
                 />
                 {print.featured && (
-                  <div className="absolute top-4 left-4">
-                    <span className="font-montserrat text-xs bg-earth-green px-3 py-1 rounded-sm uppercase tracking-wider">
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="font-montserrat text-xs bg-earth-green px-3 py-1 rounded-sm uppercase tracking-wider text-white">
                       Featured
                     </span>
                   </div>
@@ -142,130 +132,102 @@ export default function PrintDetailsPage() {
               </div>
             </motion.div>
 
-            {/* Details Section */}
+            {/* Details Section - Sticky on Desktop */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="bg-[#0D0D0C] backdrop-blur-sm rounded-sm p-8 border border-gray-800"
+              className="lg:col-span-4 lg:sticky lg:top-8"
             >
-              <div className="space-y-6">
-                {/* Title and Category */}
-                <div>
-                  <h1 className="font-bebas text-4xl text-white mb-2">{print.title}</h1>
-                  <div className="flex items-center gap-4">
-                    <span className="font-montserrat text-xs uppercase tracking-wider text-earth-green bg-earth-green/10 px-3 py-1 rounded-sm">
-                      {print.category}
-                    </span>
-                    {print.featured && (
-                      <span className="font-montserrat text-xs uppercase tracking-wider text-amber-400 bg-amber-400/10 px-3 py-1 rounded-sm">
-                        Featured
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Description */}
-                <p className="font-lora text-gray-300 leading-relaxed text-lg">
-                  {print.description}
-                </p>
-
-                {/* Price Display */}
-                <div className="flex items-center justify-between py-4 border-y border-gray-800">
-                  <div>
-                    <span className="font-bebas text-3xl text-earth-green">${calculatePrice()}</span>
-                    {print.featured && (
-                      <span className="font-montserrat text-xs text-amber-400 ml-2">FEATURED PRINT</span>
-                    )}
-                  </div>
-                  <button
-                    onClick={toggleWishlist}
-                    className={`p-3 rounded-sm border transition-all duration-300 ${
-                      isInWishlist
-                        ? 'bg-red-500/20 border-red-500/50 text-red-400'
-                        : 'bg-white/10 border-white/20 text-white hover:bg-white/20'
-                    }`}
-                  >
-                    <FaHeart className="text-lg" />
-                  </button>
-                </div>
-
-                {/* Customization Options */}
+              <div className="bg-[#0D0D0C] backdrop-blur-sm rounded-sm p-8 border border-gray-800">
                 <div className="space-y-6">
-                  {/* Size Selection */}
+                  {/* Title and Category */}
                   <div>
-                    <label className="font-montserrat text-sm uppercase tracking-wider block mb-3 text-gray-300">
-                      Select Size
-                    </label>
-                    <select 
-                      value={selectedSize}
-                      onChange={(e) => setSelectedSize(e.target.value)}
-                      className="custom-select w-full px-4 py-3 bg-black/50 border border-gray-700 rounded-sm text-white font-lora focus:outline-none focus:border-earth-green/50 transition-colors"
-                    >
-                      <option value="18x24 inches">18x24 inches - ${print.price - 50}</option>
-                      <option value="24x36 inches">24x36 inches - ${print.price}</option>
-                      <option value="30x40 inches">30x40 inches - ${print.price + 100}</option>
-                    </select>
+                    <h1 className="font-bebas text-3xl text-white mb-2 leading-none">{print.title}</h1>
+                    <div className="flex items-center gap-4">
+                      <span className="font-montserrat text-xs uppercase tracking-wider text-earth-green bg-earth-green/10 px-3 py-1 rounded-sm">
+                        {print.category}
+                      </span>
+                    </div>
                   </div>
 
-                  {/* Material Selection */}
-                  <div>
-                    <label className="font-montserrat text-sm uppercase tracking-wider block mb-3 text-gray-300">
-                      Select Material
-                    </label>
-                    <select 
-                      value={selectedMaterial}
-                      onChange={(e) => setSelectedMaterial(e.target.value)}
-                      className="custom-select w-full px-4 py-3 bg-black/50 border border-gray-700 rounded-sm text-white font-lora focus:outline-none focus:border-earth-green/50 transition-colors"
-                    >
-                      <option value="Premium Matte Paper">Premium Matte Paper - Base</option>
-                      <option value="Glossy Fine Art Paper">Glossy Fine Art Paper - +$25</option>
-                      <option value="Canvas Texture">Canvas Texture - +$75</option>
-                    </select>
+                  {/* Description */}
+                  <p className="font-lora text-gray-300 leading-relaxed text-sm">
+                    {print.description}
+                  </p>
+
+                  {/* Customization Options */}
+                  <div className="space-y-6">
+                    {/* Size Selection */}
+                    <div>
+                      <label className="font-montserrat text-xs uppercase tracking-wider block mb-2 text-gray-400">
+                        Select Size
+                      </label>
+                      <select 
+                        value={selectedSize}
+                        onChange={(e) => setSelectedSize(e.target.value)}
+                        className="custom-select w-full px-4 py-3 bg-black/50 border border-gray-700 rounded-sm text-white font-lora focus:outline-none focus:border-earth-green/50 transition-colors"
+                      >
+                        <option value="8x12 inches">8x12 inches</option>
+                        <option value="10x15 inches">10x15 inches</option>
+                        <option value="16x24 inches">16x24 inches</option>
+                        <option value="20x30 inches">20x30 inches</option>
+                        <option value="24x36 inches">24x36 inches</option>
+                      </select>
+                    </div>
+
+                    {/* Material Selection */}
+                    <div>
+                      <label className="font-montserrat text-xs uppercase tracking-wider block mb-2 text-gray-400">
+                        Select Material
+                      </label>
+                      <select 
+                        value={selectedMaterial}
+                        onChange={(e) => setSelectedMaterial(e.target.value)}
+                        className="custom-select w-full px-4 py-3 bg-black/50 border border-gray-700 rounded-sm text-white font-lora focus:outline-none focus:border-earth-green/50 transition-colors"
+                      >
+                        <option value="Canvas Texture">Canvas Texture</option>
+                        <option value="Premium Matte Paper">Premium Matte Paper</option>
+                        <option value="Glossy Fine Art Paper">Glossy Fine Art Paper</option>
+                      </select>
+                    </div>
+
+                    {/* Frame Selection */}
+                    <div>
+                      <label className="font-montserrat text-xs uppercase tracking-wider block mb-2 text-gray-400">
+                        Select Frame
+                      </label>
+                      <select 
+                        value={selectedFrame}
+                        onChange={(e) => setSelectedFrame(e.target.value)}
+                        className="custom-select w-full px-4 py-3 bg-black/50 border border-gray-700 rounded-sm text-white font-lora focus:outline-none focus:border-earth-green/50 transition-colors"
+                      >
+                        <option value="Unframed">Unframed - Rolled Canvas</option>
+                      </select>
+                    </div>
                   </div>
 
-                  {/* Frame Selection */}
-                  <div>
-                    <label className="font-montserrat text-sm uppercase tracking-wider block mb-3 text-gray-300">
-                      Select Frame
-                    </label>
-                    <select 
-                      value={selectedFrame}
-                      onChange={(e) => setSelectedFrame(e.target.value)}
-                      className="custom-select w-full px-4 py-3 bg-black/50 border border-gray-700 rounded-sm text-white font-lora focus:outline-none focus:border-earth-green/50 transition-colors"
-                    >
-                      <option value="Unframed">Unframed - Base</option>
-                      <option value="Black Frame">Black Frame - +$150</option>
-                      <option value="Wood Frame">Wood Frame - +$200</option>
-                      <option value="White Frame">White Frame - +$150</option>
-                    </select>
-                  </div>
-                </div>
+                  {/* 3. Updated WhatsApp Button */}
+                  <button
+                    onClick={handleWhatsAppInquiry}
+                    className="cursor-pointer font-montserrat text-sm text-white bg-earth-green hover:bg-earth-green-accent px-6 py-4 rounded-sm transition-colors uppercase tracking-wider w-full flex items-center justify-center gap-3 mt-8 shadow-lg shadow-earth-green/20"
+                  >
+                    <FaWhatsapp className="text-xl" />
+                    ORDER VIA WHATSAPP
+                  </button>
 
-                {/* Add to Cart Button */}
-                <button
-                  onClick={addToCart}
-                  className="font-montserrat text-sm text-white bg-earth-green hover:bg-earth-green-accent px-6 py-4 rounded-sm transition-colors uppercase tracking-wider w-full flex items-center justify-center gap-3 mt-8"
-                >
-                  <FaShoppingCart className="text-base" />
-                  ADD TO CART - ${calculatePrice()}
-                </button>
-
-                {/* Additional Info */}
-                <div className="pt-6 border-t border-gray-800">
-                  <div className="space-y-3 text-sm text-gray-400">
-                    <p className="flex justify-between">
-                      <span className="font-montserrat">Free Shipping</span>
-                      <span className="font-lora text-earth-green">Worldwide</span>
-                    </p>
-                    <p className="flex justify-between">
-                      <span className="font-montserrat">Delivery Time</span>
-                      <span className="font-lora">7-14 Business Days</span>
-                    </p>
-                    <p className="flex justify-between">
-                      <span className="font-montserrat">Quality Guarantee</span>
-                      <span className="font-lora">30 Days Return</span>
-                    </p>
+                  {/* Additional Info */}
+                  <div className="pt-6 border-t border-gray-800">
+                    <div className="space-y-3 text-sm text-gray-500">
+                      <p className="flex justify-between">
+                        <span className="font-montserrat">Free Shipping</span>
+                        <span className="font-lora text-earth-green">Worldwide</span>
+                      </p>
+                      <p className="flex justify-between">
+                        <span className="font-montserrat">Delivery Time</span>
+                        <span className="font-lora">7-14 Business Days</span>
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

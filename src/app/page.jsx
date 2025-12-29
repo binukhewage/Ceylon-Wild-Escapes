@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import {
   FaSafari,
   FaCamera,
@@ -20,7 +20,7 @@ import {
   FaTag,
   FaRegClock,
   FaQuoteLeft,
-  FaTiktok
+  FaTiktok,
 } from "react-icons/fa";
 import { Bebas_Neue, Lora, Montserrat, Kolker_Brush } from "next/font/google";
 import { Star } from "lucide-react";
@@ -79,7 +79,7 @@ const tours = [
     type: "Heritage",
     title: "Urumaya Trail",
     subtitle: "Heritage & Habitat",
-    heroImage: "/images/anu.jpeg",
+    heroImage: "/images/urumayacard.jpg",
     duration: " 15 Days/14 Nights",
     price: "$4,999",
     intro:
@@ -116,7 +116,7 @@ const tours = [
 const slides = [
   {
     id: 1,
-    src: "/videos/homevideo.mp4",
+    src: "/videos/finalc.mp4",
     alt: "Sri Lankan leopard in the wild",
   },
 ];
@@ -129,10 +129,11 @@ const teamMembers = [
     bio: "I'm Roshan Peiris, a Sri Lankan wildlife and nature photographer. Since 2019, my passion for capturing Sri Lanka's untamed beauty has grown into a full-time pursuit. After dedicating myself entirely to wildlife photography in 2024, I now guide wildlife photo safaris to share the magical experience of nature with enthusiasts.",
     image: "/images/rpei.jpg",
     social: {
-        instagram: "https://www.instagram.com/ceylonwildescapes",
-        facebook: "https://www.facebook.com/share/1HdMuTRY9P/?mibextid=wwXIfr",
-        tiktok: "https://www.tiktok.com/@ceylonwildescapes?_r=1&_t=ZS-92Z7UqDR7tR",
-      },
+      instagram: "https://www.instagram.com/ceylonwildescapes",
+      facebook: "https://www.facebook.com/share/1HdMuTRY9P/?mibextid=wwXIfr",
+      tiktok:
+        "https://www.tiktok.com/@ceylonwildescapes?_r=1&_t=ZS-92Z7UqDR7tR",
+    },
   },
 ];
 
@@ -164,7 +165,7 @@ const cards = [
     title: "Destinations",
     subtitle: "Explore iconic habitats",
     icon: <FaMapMarkerAlt className="text-xl" />,
-    image: "/images/hp.jpg",
+    image: "/images/destinationshome.jpg",
     link: "/destinations",
     stats: "06+ Locations",
     description:
@@ -175,39 +176,39 @@ const cards = [
 const reviews = [
   {
     id: 1,
-    name: "Sarah Johnson",
+    name: "Milind Naik",
     role: "Wildlife Photographer",
     rating: 5,
     text: "The leopard sightings were beyond anything I could have imagined. The guides' knowledge was exceptional, getting us into the perfect position for light and composition without disturbing the animals.",
     image: "/images/review1.jpg",
-    location: "United Kingdom",
+    location: "India",
   },
   {
     id: 2,
-    name: "Michael Chen",
+    name: "Santhosh Anand",
     role: "Nature Journalist",
     rating: 5,
     text: "Ceylon Wild Escapes delivered the most authentic wildlife experience I've had in 15 years of travel. No rushing, just pure, unadulterated nature. Truly a photographer's dream.",
     image: "/images/review2.jpg",
-    location: "USA",
+    location: "India",
   },
   {
     id: 3,
-    name: "Dr. Priya Fernando",
+    name: "Roy Rebeira",
     role: "Conservation Biologist",
     rating: 5,
     text: "Their ethical approach to wildlife tourism sets a new standard for the industry. It was refreshing to see a team so dedicated to preservation while providing a luxury experience.",
     image: "/images/review3.jpg",
-    location: "Australia",
+    location: "Baharain",
   },
   {
     id: 4,
-    name: "Elena Rodriguez",
+    name: "Yuhanhui Zang",
     role: "Travel Blogger",
     rating: 5,
     text: "From the luxury glamping arrangements to the thrill of tracking sloth bears, every detail was curated to perfection. Roshan's team are true masters of the wild.",
     image: "/images/review4.jpg",
-    location: "Spain",
+    location: "China",
   },
 ];
 
@@ -329,9 +330,7 @@ const Home = () => {
                 CEYLON
               </span>
             </h1>
-            <h2 
-            
-            className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight font-bebas">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight font-bebas">
               WILD <span className="text-earth-green">ESCAPES</span>
             </h2>
             <p className="font-lora text-gray-300 text-sm md:text-lg max-w-xl mb-8 md:mb-10 leading-relaxed border-l-2 border-[#4a7c59] pl-4 md:pl-6">
@@ -420,7 +419,7 @@ const Home = () => {
                 </h3>
 
                 <div className="border-l-2 border-[#4a7c59]/30 pl-6 mb-8">
-                  <p className="font-lora text-gray-300 text-lg leading-relaxed italic mb-4">
+                  <p className="font-lora text-gray-300 text-lg leading-relaxed italic mb-4 text-justify">
                     "Since 2019, my lens has been searching for the soul of Sri
                     Lanka. To guide a tour is not just to show animals, but to
                     translate the language of the jungle to those who walk with
@@ -431,7 +430,7 @@ const Home = () => {
                   </p>
                 </div>
 
-                <p className="font-lora text-gray-400 text-sm md:text-base leading-relaxed mb-10 max-w-2xl">
+                <p className="font-lora text-gray-400 text-sm md:text-base leading-relaxed mb-10 max-w-2xl text-justify">
                   After dedicating myself entirely to wildlife photography in
                   2024, I founded Ceylon Wild Escapes to share the magical
                   experience of nature with enthusiasts. We prioritize ethical
@@ -533,9 +532,7 @@ const Home = () => {
                     <div className="mb-2 flex items-center gap-3">
                       <span className="text-earth-green">{card.icon}</span>
 
-                      <h3 
-                      
-                      className="font-bold uppercase text-2xl text-white leading-none group-hover:text-earth-green transition-colors">
+                      <h3 className="font-bold uppercase text-2xl text-white leading-none group-hover:text-earth-green transition-colors">
                         {card.title}
                       </h3>
                     </div>
@@ -672,9 +669,10 @@ const Home = () => {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
               >
-                <h3 
-                style={{ fontFamily: "var(--font-bebas)" }}
-                className="text-3xl md:text-4xl text-white leading-none mb-2 drop-shadow-lg font-bold uppercase">
+                <h3
+                  style={{ fontFamily: "var(--font-bebas)" }}
+                  className="text-3xl md:text-4xl text-white leading-none mb-2 drop-shadow-lg font-bold uppercase"
+                >
                   {tours[activeIndex].title}
                 </h3>
 
@@ -712,7 +710,10 @@ const Home = () => {
             Voices of the Wild
           </span>
           <h2 className="text-4xl sm:text-5xl text-white leading-[1.2] mt-4">
-            CLIENT <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]">TESTIMONIALS</span>
+            CLIENT{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]">
+              TESTIMONIALS
+            </span>
           </h2>
         </div>
 
@@ -752,7 +753,7 @@ const Home = () => {
                 </p>
 
                 <div className="flex items-center gap-4 mt-auto">
-                 {/*  <div className="relative w-12 h-12 rounded-full overflow-hidden border border-white/20">
+                  {/*  <div className="relative w-12 h-12 rounded-full overflow-hidden border border-white/20">
                     <Image
                       src={review.image}
                       alt={review.name}
@@ -776,85 +777,124 @@ const Home = () => {
       </section>
 
       {/* --- NEWSLETTER --- */}
+      {/* --- NEWSLETTER --- */}
       <div className="relative bg-black py-20 md:py-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="max-w-4xl mx-auto relative z-10 text-center">
+          {/* Heading */}
           <div className="text-center mb-10 md:mb-12">
             <div className="mb-4">
               <span className="font-sans text-xs uppercase tracking-[0.4em] text-earth-green">
                 Wild Updates
               </span>
             </div>
+
             <h2 className="font-kolker text-4xl sm:text-5xl text-white leading-[1.2] mb-6">
               UNLOCK THE <br className="sm:hidden" />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]">
                 UNTAMED
               </span>
             </h2>
+
             <p className="font-lora text-gray-400 max-w-lg mx-auto text-sm leading-relaxed">
               Join our exclusive circle. Receive curated wildlife stories,
               photography secrets, and expedition invites.
             </p>
           </div>
+
+          {/* Form / Success State */}
           <div className="relative max-w-lg mx-auto">
-            {isSubscribed ? (
-              <div className="bg-white/5 backdrop-blur-md border border-earth-green/30 rounded-2xl p-8 text-center">
-                <div className="w-12 h-12 bg-earth-green/20 rounded-full flex items-center justify-center mx-auto mb-4 text-earth-green">
-                  <svg
-                    className="w-6 h-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M5 13l4 4L19 7"
-                    ></path>
-                  </svg>
-                </div>
-                <h3 className="font-kolker text-4xl text-white mb-2">
-                  Welcome to the Tribe
-                </h3>
-              </div>
-            ) : (
-              <form className="relative group" onSubmit={handleSubscribe}>
-                <div className="flex items-center bg-white/5 backdrop-blur-md border border-white/10 rounded-full p-2 transition-all duration-300 focus-within:border-earth-green/50">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email address..."
-                    className="flex-grow bg-transparent border-none text-white px-4 md:px-6 py-2 focus:ring-0 focus:outline-none font-lora text-sm placeholder:text-gray-500 w-full"
-                    required
-                  />
-                  <button
-                    type="submit"
-                    className="hidden sm:block bg-[#4a7c59] hover:bg-[#5d8c6d] text-white font-sans text-[10px] uppercase tracking-widest px-8 py-3 rounded-full transition-all duration-300 shadow-lg"
-                  >
-                    Subscribe
-                  </button>
-                  <button
-                    type="submit"
-                    className="sm:hidden bg-[#4a7c59] text-white p-3 rounded-full flex-shrink-0"
-                  >
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
+            <AnimatePresence mode="wait">
+              {isSubscribed ? (
+                <motion.div
+                  key="success"
+                  initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.9, y: -10 }}
+                  transition={{ duration: 0.4, type: "spring", bounce: 0.3 }}
+                  className="bg-[#111]/80 backdrop-blur-xl border border-[#4a7c59]/50 rounded-2xl p-8 text-center shadow-[0_0_40px_rgba(74,124,89,0.15)] relative overflow-hidden"
+                >
+                  {/* Glow */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#4a7c59]/10 via-transparent to-transparent opacity-50 pointer-events-none"></div>
+
+                  <div className="relative z-10 flex flex-col items-center">
+                    {/* Check Icon */}
+                    <div className="w-14 h-14 rounded-full bg-[#4a7c59]/20 flex items-center justify-center mb-4 text-[#4a7c59] border border-[#4a7c59]/30 shadow-[0_0_15px_rgba(74,124,89,0.3)]">
+                      <svg
+                        className="w-6 h-6"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2.5"
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    </div>
+
+                    <h3 className="font-bebas text-3xl text-white mb-2 tracking-wide">
+                      WELCOME TO THE{" "}
+                      <span className="text-[#4a7c59]">TRIBE</span>
+                    </h3>
+
+                    <p className="font-lora text-gray-400 text-sm max-w-xs mx-auto leading-relaxed">
+                      You're now on the list for exclusive wildlife stories and
+                      expedition updates.
+                    </p>
+                  </div>
+                </motion.div>
+              ) : (
+                <motion.form
+                  key="form"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="relative group"
+                  onSubmit={handleSubscribe}
+                >
+                  <div className="flex items-center bg-white/5 backdrop-blur-md border border-white/10 rounded-full p-2 transition-all duration-300 focus-within:border-[#4a7c59]/50 focus-within:bg-black/40 focus-within:shadow-[0_0_20px_rgba(74,124,89,0.1)]">
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Enter your email address..."
+                      className="flex-grow bg-transparent border-none text-white px-6 py-3 focus:ring-0 focus:outline-none font-lora text-sm placeholder:text-gray-500 w-full"
+                      required
+                    />
+
+                    {/* Desktop Button */}
+                    <button
+                      type="submit"
+                      className="hidden sm:block bg-[#4a7c59] hover:bg-[#5d8c6d] text-white font-montserrat text-[10px] uppercase tracking-widest px-8 py-3 rounded-full transition-all duration-300 shadow-lg hover:shadow-[#4a7c59]/40 font-bold"
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M14 5l7 7m0 0l-7 7m7-7H3"
-                      ></path>
-                    </svg>
-                  </button>
-                </div>
-              </form>
-            )}
+                      Subscribe
+                    </button>
+
+                    {/* Mobile Button */}
+                    <button
+                      type="submit"
+                      className="sm:hidden bg-[#4a7c59] text-white p-3 rounded-full flex-shrink-0 shadow-lg"
+                    >
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M14 5l7 7m0 0l-7 7m7-7H3"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </motion.form>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>

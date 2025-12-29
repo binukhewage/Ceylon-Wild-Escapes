@@ -26,9 +26,9 @@ const galleryItems = [
   // Leopards
   { id: 2, src: "/images/l1.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },
   { id: 3, src: "/images/l2.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },
-  { id: 15, src: "/images/l6.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },
-  { id: 17, src: "/images/l3.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },
-  { id: 19, src: "/images/l5.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },
+  { id: 15, src: "/images/l10.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },
+  { id: 17, src: "/images/wilpattucb.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },
+  { id: 19, src: "/images/", category: "Leopard", title: "Shadow Stalker", type: "color" },
   { id: 20, src: "/images/l7.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },
   { id: 21, src: "/images/l8.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },
   { id: 22, src: "/images/l9.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },
@@ -79,7 +79,7 @@ const galleryItems = [
   { id: 36, src: "/images/d10.jpg", category: "Deer", title: "Graceful Leap", type: "color" },
 
   // Other Animals
-  { id: 51, src: "/images/o1.jpg", category: "other", title: "Curious Primate", type: "color" },
+  { id: 51, src: "/images/rusty1.jpg", category: "other", title: "Curious Primate", type: "color" },
   { id: 11, src: "/images/m1.jpg", category: "other", title: "Curious Primate", type: "color" },
   { id: 12, src: "/images/m3.jpg", category: "other", title: "Curious Primate", type: "color" },
   { id: 13, src: "/images/m2.jpg", category: "other", title: "Curious Primate", type: "color" },

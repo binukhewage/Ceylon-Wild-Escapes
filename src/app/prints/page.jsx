@@ -42,7 +42,7 @@ const PrintsPage = () => {
   const categories = [
     { id: "all", name: "All Archives" },
     { id: "mammals", name: "Mammals" },
-    { id: "birds", name: "Avian" },
+    { id: "avian", name: "Avian" },
     { id: "reptiles", name: "Reptiles" },
     { id: "landscapes", name: "Scenery" },
   ];
@@ -96,7 +96,7 @@ const PrintsPage = () => {
         {/* Background Layer */}
         <div className="absolute inset-0">
           <Image
-            src="/images/hero12.jpg"
+            src="/images/prints-banner01.jpg"
             alt="Fine Art Prints"
             fill
             className="object-cover opacity-60"
@@ -230,14 +230,7 @@ const PrintsPage = () => {
                        >
                           <FaExpand className="text-sm" />
                        </button>
-                       <button 
-                          onClick={() => toggleWishlist(print)}
-                          className={`w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-md border border-white/20 transition-all transform hover:scale-110 ${
-                            wishlist.includes(print.id) ? "bg-red-500/80 text-white border-red-500" : "bg-white/10 text-white hover:bg-white/20"
-                          }`}
-                       >
-                          <FaHeart className="text-sm" />
-                       </button>
+                       
                     </div>
 
                     {/* Badge */}
@@ -258,10 +251,9 @@ const PrintsPage = () => {
                           {print.title}
                         </h3>
                         <p className="font-montserrat text-[10px] uppercase tracking-wider text-gray-500">
-                          {print.medium} • {print.size}
+                          {print.category} Collection
                         </p>
                       </div>
-                      <span className="font-lora text-white text-lg">${print.price}</span>
                     </div>
                     
                     <p className="font-lora text-gray-400 text-xs line-clamp-2 mb-6">
@@ -270,7 +262,7 @@ const PrintsPage = () => {
 
                     <div className="mt-auto">
                         <Link href={`/prints/${print.id}`}>
-                            <button className="w-full py-3 rounded-sm border border-white/10 hover:border-[#4a7c59] hover:bg-[#4a7c59]/10 text-center transition-all duration-300">
+                            <button className="cursor-pointer w-full py-3 rounded-sm border border-white/10 hover:border-[#4a7c59] hover:bg-[#4a7c59]/10 text-center transition-all duration-300">
                                 <span className="font-montserrat text-[10px] uppercase tracking-[0.2em] text-white">
                                 View Details
                                 </span>
@@ -339,7 +331,7 @@ const PrintsPage = () => {
                 <span className="font-montserrat text-[10px] uppercase tracking-[0.2em] text-[#4a7c59] block mb-2">
                    {selectedPrint.category} Collection
                 </span>
-                <h2 className="font-kolker text-6xl text-white leading-none mb-6">
+                <h2 className="font-kolker text-4xl text-white leading-none mb-6">
                   {selectedPrint.title}
                 </h2>
 
@@ -361,10 +353,7 @@ const PrintsPage = () => {
                 </div>
 
                 <div className="flex items-center justify-between mb-8">
-                   <div className="flex flex-col">
-                      <span className="font-montserrat text-[10px] text-gray-500 uppercase">Price</span>
-                      <span className="font-bebas text-3xl text-white">${selectedPrint.price}</span>
-                   </div>
+                   
                 </div>
 
                 <div className="flex gap-4">

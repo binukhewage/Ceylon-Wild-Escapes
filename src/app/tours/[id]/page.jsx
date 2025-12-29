@@ -312,10 +312,10 @@ export default function TourDetails(props) {
             >
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h4 className="font-bold text-2xl text-white mb-2 tracking-wide uppercase font-bebas">
+                  <h4 className="font-bold text-2xl text-white mb-2 tracking-wide font-bebas">
                     Route of {tour.title}
                   </h4>
-                  <p className="font-montserrat text-xs text-white/70 uppercase tracking-widest">
+                  <p className="font-montserrat text-[10px] text-white/70 uppercase tracking-widest">
                     Key Destinations & Journey Map
                   </p>
                 </div>
@@ -331,7 +331,7 @@ export default function TourDetails(props) {
               >
                 {/* 1. Map Image Preview */}
                 <Image
-                  src="/images/route.png" // Make sure this image exists in public/images
+                  src={tour.routeimage} // Make sure this image exists in public/images
                   alt="Sri Lanka Route Map"
                   fill
                   className="object-contain object-center opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
@@ -378,8 +378,8 @@ export default function TourDetails(props) {
                     >
                       {/* Number Badge */}
                       <div className="relative">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#4a7c59] to-[#8fbc9d] flex items-center justify-center font-montserrat font-bold text-xs text-white">
-                          {index + 1}
+                        <div className="w-8 h-8 rounded-full flex items-center justify-center font-montserrat font-bold text-xs text-white">
+                          {index + 1}.
                         </div>
                       </div>
 
@@ -432,7 +432,7 @@ export default function TourDetails(props) {
           </div>
 
           {/* --- ITINERARY PARTS --- */}
-          <div className="space-y-24 mb-24">
+          <div className="space-y-24 mb-24 text-justify">
             {tour.parts?.map((part, partIndex) => (
               <div key={partIndex} className="relative">
                 {part.name && (
@@ -465,16 +465,7 @@ export default function TourDetails(props) {
                       className="object-cover hover:scale-105 transition-transform duration-1000"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                    <div className="absolute bottom-6 left-6 right-6">
-                      <span className="font-bold uppercase text-lg text-white/50 drop-shadow-md">
-                        {[
-                          "The Beginning",
-                          "Deep Wilderness",
-                          "The Highland Finale",
-                          "Coastal Retreat",
-                        ][partIndex] || "Expedition Phase"}
-                      </span>
-                    </div>
+                    
                   </motion.div>
 
                   <div

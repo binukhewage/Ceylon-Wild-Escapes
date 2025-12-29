@@ -2,21 +2,20 @@
 import React, { useState } from "react";
 import {
   FaMapMarkerAlt,
-  FaCamera,
-  FaLeaf,
-  FaPaw,
-  FaWater,
-  FaTree,
   FaChevronRight,
-  FaChevronLeft,
   FaLayerGroup,
+  FaExpand,
+  FaClock,
+  FaTree,
+  FaPaw,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { Bebas_Neue, Lora, Montserrat } from "next/font/google";
+import { Bebas_Neue, Lora, Montserrat, Kolker_Brush } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import destinations from "../../data/destinations.js";
 
+// --- Font Setup ---
 const bebas = Bebas_Neue({
   subsets: ["latin"],
   weight: "400",
@@ -33,291 +32,177 @@ const montserrat = Montserrat({
   variable: "--font-montserrat",
 });
 
-// Image Carousel Component
-const ImageCarousel = ({ images, name }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const nextImage = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-
-  const prevImage = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
-  };
-
-  return (
-    <div className="relative h-80 overflow-hidden group">
-      {images.map((image, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 transition-opacity duration-500 ${
-            index === currentIndex ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <Image
-            src={image}
-            alt={`${name} - Image ${index + 1}`}
-            fill
-            className="object-cover"
-          />
-        </div>
-      ))}
-
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-
-      {/* Navigation buttons */}
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          prevImage();
-        }}
-        className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/40 p-2 rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity"
-      >
-        <FaChevronLeft className="text-white text-sm" />
-      </button>
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          nextImage();
-        }}
-        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/40 p-2 rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity"
-      >
-        <FaChevronRight className="text-white text-sm" />
-      </button>
-
-      {/* Dots indicator */}
-      <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-1.5">
-        {images.map((_, index) => (
-          <button
-            key={index}
-            onClick={(e) => {
-              e.stopPropagation();
-              setCurrentIndex(index);
-            }}
-            className={`w-1.5 h-1.5 rounded-full transition-all ${
-              index === currentIndex ? "bg-white" : "bg-white/50"
-            }`}
-          />
-        ))}
-      </div>
-    </div>
-  );
-};
+const kolker = Kolker_Brush({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-kolker",
+});
 
 const DestinationsPage = () => {
   return (
     <div
-      className={`${bebas.variable} ${lora.variable} ${montserrat.variable} min-h-screen bg-black text-white`}
+      className={`${bebas.variable} ${lora.variable} ${montserrat.variable} ${kolker.variable} min-h-screen bg-black text-white selection:bg-[#4a7c59] selection:text-white`}
     >
-      {/* Custom CSS for premium effects */}
-      <style jsx>{`
-        .text-earth-green {
-          color: #4a7c59;
-        }
-        .text-earth-green-light {
-          color: #8a9b68;
-        }
-        .text-earth-green-accent {
-          color: #6b8e23;
-        }
-        .bg-earth-green {
-          background-color: #4a7c59;
-        }
-        .bg-earth-green-light {
-          background-color: #8a9b68;
-        }
-        .bg-earth-green-accent {
-          background-color: #6b8e23;
-        }
-        .premium-card {
-          position: relative;
-          overflow: hidden;
-        }
-        .premium-card::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          border-radius: 0.5rem;
-          padding: 1px;
-          background: linear-gradient(45deg, #4a7c59, #8a9b68, #4a7c59);
-          -webkit-mask: linear-gradient(#fff 0 0) content-box,
-            linear-gradient(#fff 0 0);
-          -webkit-mask-composite: xor;
-          mask-composite: exclude;
-          opacity: 0.3;
-        }
+      <style jsx global>{`
         .wildlife-texture {
           background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%234a7c59' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
-        .destination-card {
-          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        ::-webkit-scrollbar {
+          width: 6px;
         }
-        .destination-card:hover {
-          transform: translateY(-8px);
-          box-shadow: 0 20px 40px rgba(74, 124, 89, 0.15);
+        ::-webkit-scrollbar-track {
+          background: #000;
         }
-        @keyframes bounce-x {
-          0%,
-          100% {
-            transform: translateX(0);
-          }
-          50% {
-            transform: translateX(5px);
-          }
-        }
-
-        .animate-bounce-x {
-          animation: bounce-x 1s infinite;
+        ::-webkit-scrollbar-thumb {
+          background: #4a7c59;
+          border-radius: 3px;
         }
       `}</style>
 
-      {/* Hero Section - Unchanged */}
-      <div className="relative h-[50vh] w-full overflow-hidden bg-black">
-        <div className="absolute inset-0 wildlife-texture"></div>
-        <div className="absolute inset-0">
-          <Image
-            src="/images/elewater.jpg"
-            alt="Sri Lanka National Parks"
-            fill
-            className="object-cover opacity-70 object-center"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/90" />
-        </div>
-
-        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
-          <motion.h1
-            style={{ fontFamily: "var(--font-bebas)" }}
-            className="font-bebas text-5xl md:text-7xl mb-4"
-            initial={{ opacity: 0, y: 20 }}
+      {/* =========================================
+          1. HERO SECTION
+         ========================================= */}
+      <div className="relative h-[53vh] w-full overflow-hidden bg-black">
+              <div className="absolute inset-0 wildlife-texture opacity-30"></div>
+              <Image
+                src="/images/banner02.jpg"
+                alt="Wildlife photography tours"
+                fill
+                className="object-cover opacity-70"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/80" />
+              <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
+                <motion.div
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            TOUR{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]">
-              DESTINATIONS
-            </span>
-          </motion.h1>
-          <motion.p
-            style={{ fontFamily: "var(--font-montserrat)" }}
-            className="font-lora text-lg max-w-2xl text-gray-200"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-          >
-            Discover the diverse ecosystems and incredible biodiversity of Sri
-            Lanka's premier national parks
-          </motion.p>
-        </div>
+            <h1
+              style={{ fontFamily: "var(--font-bebas)" }}
+              className="font-kolker text-5xl md:text-7xl leading-[0.75] text-white mb-6 drop-shadow-2xl"
+            >
+              Tour{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4a7c59] to-[#8fbc9d]">
+                Destinations
+              </span>
+            </h1>
+            <p
+              style={{ fontFamily: "var(--font-montserrat)" }}
+              className="font-lora text-gray-300 text-sm md:text-lg max-w-xl mx-auto leading-relaxed drop-shadow-md"
+            >
+              Discover the diverse ecosystems and incredible biodiversity of Sri
+              Lanka's premier national parks
+            </p>
+          </motion.div>
+              </div>
       </div>
 
-      {/* Premium Destinations Grid - Updated with Futuristic Luxury Layout */}
-      <div className="relative bg-black pb-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        {/* Ambient Background Glow (Right) */}
-        <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-[#4a7c59] rounded-md mix-blend-screen filter blur-[200px] opacity-10 pointer-events-none translate-x-1/2"></div>
+      {/* =========================================
+          2. DESTINATIONS GRID
+         ========================================= */}
+      <div className="relative bg-black pb-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        {/* Ambient Glows */}
+        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#4a7c59] rounded-full mix-blend-screen filter blur-[200px] opacity-10 pointer-events-none -translate-x-1/2"></div>
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#4a7c59] rounded-full mix-blend-screen filter blur-[200px] opacity-10 pointer-events-none translate-x-1/2"></div>
 
         <div className="max-w-7xl mx-auto relative z-10">
-          {/* Destinations Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16">
             {destinations.map((destination, index) => (
               <motion.div
                 key={destination.id}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
-                viewport={{ once: true, margin: "-50px" }}
-                className="group relative bg-[#111]/80 backdrop-blur-xl border border-white/10 rounded-md overflow-hidden hover:border-[#4a7c59]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#4a7c59]/10"
+                viewport={{ once: true, margin: "-100px" }}
+                className="group relative flex flex-col"
               >
-                {/* 1. Image Section */}
-                <div className="relative h-[350px] w-full overflow-hidden">
+                {/* --- 1. THE IMAGE CARD --- */}
+                <Link
+                  href={`/destinations/${destination.id}`}
+                  className="block relative w-full h-[450px] rounded-sm overflow-hidden mb-[-40px] z-0 border-b-4 border-[#4a7c59] shadow-2xl"
+                >
                   <Image
                     src={destination.images[0]}
                     alt={destination.name}
                     fill
                     className="object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
-                  {/* Gradient Overlay for Text Readability */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0C] via-transparent to-transparent opacity-90" />
-                </div>
+                  {/* Cinematic Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
 
-                {/* 2. Content Section (Overlapping Image) */}
-                <div className="relative p-8 -mt-20 z-10">
-                  {/* Title Header */}
-                  <div className="flex justify-between items-end mb-6">
-                    <h3 className="font-bold text-2xl md:text-3xl text-white leading-none transition-colors duration-300">
+                  {/* Floating Title (Inside Image) */}
+                  <div 
+                  style={{ fontFamily: "var(--font-montserrat)" }}
+                  className="absolute bottom-12 left-8 z-20">
+                    <h2 className="font-bold text-2xl md:text-3xl text-white drop-shadow-md transition-colors duration-300">
                       {destination.name}
-                    </h3>
+                    </h2>
                   </div>
+                </Link>
 
-                  {/* Description */}
-                  <p className="font-lora text-gray-300 text-sm leading-relaxed mb-8">
-                    {destination.description}
-                  </p>
-
-                  {/* HUD Stats Grid (Replaced old gray boxes with Glass) */}
-                  <div className="grid grid-cols-3 gap-3 mb-8">
-                    <div className="bg-white/5 border border-white/5 rounded-md p-3 text-center group-hover:bg-white/10 transition-colors">
-                      <span className="block font-montserrat text-md text-[#4a7c59] uppercase tracking-widest mb-1">
+                {/* --- 2. THE INFO PANEL (Glassmorphic Overlay) --- */}
+                <div className="relative z-10 mx-4 md:mx-6 bg-[#0a0a0a] border border-white/10 p-8 pt-10 rounded-lg shadow-[0_20px_50px_rgba(0,0,0,0.5)] group-hover:border-[#4a7c59]/40 transition-colors duration-500">
+                  {/* HUD Stats Bar */}
+                  <div className="flex items-center justify-between border-b border-white/5 pb-6 mb-6">
+                    <div className="flex flex-col">
+                      <span className="font-montserrat text-[9px] uppercase tracking-[0.2em] text-[#4a7c59] mb-1">
                         Area
                       </span>
-                      <span className="block font-bebas text-lg text-white tracking-wide">
+                      <span className="font-lora text-white text-sm">
                         {destination.stats.area}
                       </span>
                     </div>
-                    <div className="bg-white/5 border border-white/5 rounded-md p-3 text-center group-hover:bg-white/10 transition-colors">
-                      <span className="block font-montserrat text-md text-[#4a7c59] uppercase tracking-widest mb-1">
-                        Year
+                    <div className="h-8 w-[1px] bg-white/10"></div>
+                    <div className="flex flex-col">
+                      <span className="font-montserrat text-[9px] uppercase tracking-[0.2em] text-[#4a7c59] mb-1">
+                        Established
                       </span>
-                      <span className="block font-bebas text-lg text-white tracking-wide">
+                      <span className="font-lora text-white text-sm">
                         {destination.stats.established}
                       </span>
                     </div>
-                    <div className="bg-white/5 border border-white/5 rounded-md p-3 text-center group-hover:bg-white/10 transition-colors">
-                      <span className="block font-montserrat text-md text-[#4a7c59] uppercase tracking-widest mb-1">
-                        Wildlife
+                    <div className="h-8 w-[1px] bg-white/10"></div>
+                    <div className="flex flex-col text-right">
+                      <span className="font-montserrat text-[9px] uppercase tracking-[0.2em] text-[#4a7c59] mb-1">
+                        Focus
                       </span>
-                      <span className="block font-bebas text-lg text-white tracking-wide">
-                        30+ Species
+                      <span className="font-lora text-white text-sm">
+                        {destination.stats.focus}
                       </span>
                     </div>
                   </div>
 
-                  {/* Highlights (Compact Pills) */}
-                  <div className="mb-8">
-                    <div className="flex items-center gap-2 mb-3">
-                      <FaLayerGroup className="text-[#4a7c59] text-xs" />
-                      <span className="font-montserrat text-[10px] uppercase tracking-[0.2em] text-white/60">
-                        Key Features
-                      </span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2">
-                      {destination.highlights
-                        .slice(0, 4)
-                        .map((highlight, i) => (
-                          <span
-                            key={i}
-                            className="px-3 py-1 text-[11px] font-lora text-gray-400"
-                          >
-                            <span>- </span>
-                            {highlight}
-                          </span>
-                        ))}
-                    </div>
+                  {/* Description */}
+                  <p className="font-lora text-gray-400 text-sm leading-relaxed mb-6 line-clamp-5">
+                    {destination.description}
+                  </p>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-3 mb-8">
+                    {destination.highlights.slice(0, 4).map((highlight, i) => (
+                      <div
+                        key={i}
+                        className="flex items-start gap-3 text-gray-300 text-[11px] font-montserrat uppercase tracking-wider"
+                      >
+                        {/* Green Dot */}
+                        <span className="mt-[6px] w-2 h-2 rounded-full bg-[#4a7c59] flex-shrink-0" />
+
+                        {/* Text */}
+                        <span className="leading-snug">{highlight}</span>
+                      </div>
+                    ))}
                   </div>
 
-                  {/* CTA Button (Sleek Glass Outline) */}
-                  <Link href={`/destinations/${destination.id}`}>
-                    <button className="w-full py-4 rounded-md border border-white/10 hover:border-[#4a7c59] bg-[#4a7c59] hover:bg-[#4a7c59]/10 text-center transition-all duration-300 group/btn">
-                      <span className="font-montserrat text-[10px] uppercase tracking-[0.25em] text-white group-hover/btn:text-[#4a7c59] flex items-center justify-center gap-2">
-                        Explore Reserve{" "}
-                        <FaChevronRight className="text-[8px]" />
-                      </span>
-                    </button>
-                  </Link>
+                  {/* CTA */}
+                  <div className="flex justify-between items-center">
+                    <Link
+                      href={`/destinations/${destination.id}`}
+                      className=" bg-[#4a7c59] p-3 rounded-md group/btn flex items-center gap-2 font-montserrat text-xs uppercase tracking-[0.2em] font-bold text-white  transition-colors"
+                    >
+                      Explore Destination
+                      <FaChevronRight className="text-[10px] group-hover/btn:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
                 </div>
               </motion.div>
             ))}

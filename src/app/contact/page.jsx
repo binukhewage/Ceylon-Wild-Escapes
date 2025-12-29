@@ -1,7 +1,8 @@
 "use client";
-import React from 'react';
-import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaPaperPlane, FaInstagram, FaFacebook, FaTwitter, FaUsers, FaArrowRight } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import emailjs from "emailjs-com"; 
+import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaPaperPlane, FaInstagram, FaFacebook, FaTwitter, FaUsers, FaArrowRight, FaCheckCircle, FaTimes } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Bebas_Neue, Lora, Montserrat, Kolker_Brush } from "next/font/google";
 import Image from "next/image";
 
@@ -23,11 +24,17 @@ const montserrat = Montserrat({
 });
 
 const ContactPage = () => {
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
     message: '',
+  });
+
+  const [notification, setNotification] = useState({
+    show: false,
+    message: '',
+    type: 'success' // 'success' or 'error'
   });
 
   const handleChange = (e) => {
@@ -38,15 +45,126 @@ const ContactPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const showNotification = (message, type = 'success') => {
+    setNotification({
+      show: true,
+      message,
+      type
+    });
+    
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+      setNotification(prev => ({ ...prev, show: false }));
+    }, 5000);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Add your submission logic here
+
+    const now = new Date().toLocaleString("en-US", {
+      dateStyle: "medium",
+      timeStyle: "short",
+    });
+
+    try {
+      await emailjs.send(
+        "service_ybemgkq",
+        "template_j46qaue", // Replace with your actual Template ID
+        {
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          time: now,
+        },
+        "frgyRxrrdt5wQD51b" // Replace with your Public Key
+      );
+
+      // Show custom notification
+      showNotification("Message sent successfully. Our team will be in touch shortly.", 'success');
+
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      showNotification("Failed to send message. Please try again.", 'error');
+    }
   };
 
   return (
     <div className={`${bebas.variable} ${lora.variable} ${montserrat.variable} ${kolker.variable} min-h-screen bg-black text-white selection:bg-[#4a7c59] selection:text-white`}>
       
+      {/* Webflow-style Notification */}
+      <AnimatePresence>
+        {notification.show && (
+          <motion.div
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -50 }}
+            transition={{ duration: 0.3 }}
+            className="fixed top-6 right-6 z-50 max-w-md"
+          >
+            <div className={`relative flex items-start gap-3 p-4 rounded-lg shadow-2xl border ${
+              notification.type === 'success' 
+                ? 'bg-gradient-to-r from-[#0a2f1f] to-[#113826] border-[#4a7c59]/30' 
+                : 'bg-gradient-to-r from-[#2f0a0a] to-[#381111] border-red-500/30'
+            }`}>
+              
+              {/* Left Border Accent */}
+              <div className={`absolute left-0 top-0 h-full w-1 rounded-l-lg ${
+                notification.type === 'success' ? 'bg-[#4a7c59]' : 'bg-red-500'
+              }`}></div>
+              
+              {/* Icon */}
+              <div className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center ${
+                notification.type === 'success' 
+                  ? 'bg-[#4a7c59]/20 text-[#4a7c59]' 
+                  : 'bg-red-500/20 text-red-400'
+              }`}>
+                {notification.type === 'success' ? (
+                  <FaCheckCircle className="text-sm" />
+                ) : (
+                  <FaTimes className="text-sm" />
+                )}
+              </div>
+              
+              {/* Message */}
+              <div className="flex-1">
+                <p className={`font-montserrat text-sm font-medium ${
+                  notification.type === 'success' ? 'text-[#8fbc9d]' : 'text-red-300'
+                }`}>
+                  {notification.message}
+                </p>
+              </div>
+              
+              {/* Close Button */}
+              <button
+                onClick={() => setNotification(prev => ({ ...prev, show: false }))}
+                className="flex-shrink-0 text-gray-400 hover:text-white transition-colors"
+              >
+                <FaTimes className="text-sm" />
+              </button>
+              
+              {/* Progress Bar */}
+              <motion.div
+                initial={{ scaleX: 1 }}
+                animate={{ scaleX: 0 }}
+                transition={{ duration: 5, ease: "linear" }}
+                className={`absolute bottom-0 left-0 right-0 h-0.5 rounded-b-lg origin-left ${
+                  notification.type === 'success' ? 'bg-[#4a7c59]' : 'bg-red-500'
+                }`}
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* =========================================
           1. CINEMATIC HERO (The Blend)
          ========================================= */}
@@ -55,13 +173,12 @@ const ContactPage = () => {
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
-            src="/images/hero1.jpg" // High quality hero image
+            src="/images/contact-banner.jpg"
             alt="Contact us"
             fill
             className="object-cover opacity-70"
             priority
           />
-          {/* THE BLEND: Gradient to solid black */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/60 to-black"></div>
         </div>
 
@@ -113,11 +230,11 @@ const ContactPage = () => {
               {/* Internal Glow */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-[#4a7c59] rounded-full mix-blend-screen filter blur-[100px] opacity-10 pointer-events-none"></div>
 
-              <div className="flex items-center gap-4 mb-10 border-b border-white/10 pb-6">
+              <div className="flex items-center gap-4 mb-10 border-b border-white/10 pb-6 cursor-pointer">
                 <div className="w-10 h-10 rounded-full bg-[#4a7c59]/10 flex items-center justify-center border border-[#4a7c59]/20">
                   <FaPaperPlane className="text-[#4a7c59] text-sm" />
                 </div>
-                <h3 className="font-bebas text-3xl text-white tracking-wide">Send a Message</h3>
+                <h3 className="font-bebas text-3xl text-white tracking-wide cursor-pointer">Send a Message</h3>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
@@ -211,7 +328,7 @@ const ContactPage = () => {
                   <div className="group">
                     <span className="block font-montserrat text-[10px] uppercase tracking-[0.2em] text-[#4a7c59] mb-1">Office Location</span>
                     <p className="font-lora text-gray-300 text-sm leading-relaxed group-hover:text-white transition-colors">
-                      123 Wildlife Lane, <br />Colombo 05, Sri Lanka
+                      No 21/12A, <br />Dewala Road,<br /> Pagoda, Nugegoda. <br/> Sri Lanka
                     </p>
                   </div>
 
@@ -219,24 +336,11 @@ const ContactPage = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div className="group">
                       <span className="block font-montserrat text-[10px] uppercase tracking-[0.2em] text-[#4a7c59] mb-1 flex items-center gap-2"><FaPhone className="text-[10px]"/> Phone</span>
-                      <p className="font-lora text-gray-300 text-sm group-hover:text-white transition-colors">+94 76 123 4567</p>
+                      <p className="font-lora text-gray-300 text-sm group-hover:text-white transition-colors">+94 77 990 4228</p>
                     </div>
                     <div className="group">
                       <span className="block font-montserrat text-[10px] uppercase tracking-[0.2em] text-[#4a7c59] mb-1 flex items-center gap-2"><FaEnvelope className="text-[10px]"/> Email</span>
-                      <p className="font-lora text-gray-300 text-sm group-hover:text-white transition-colors">hello@ceylonwild.com</p>
-                    </div>
-                  </div>
-
-                  {/* Hours */}
-                  <div className="group border-t border-white/5 pt-6">
-                    <span className="block font-montserrat text-[10px] uppercase tracking-[0.2em] text-[#4a7c59] mb-1 flex items-center gap-2"><FaClock className="text-[10px]"/> Operation Hours</span>
-                    <div className="flex justify-between font-lora text-gray-300 text-sm">
-                      <span>Mon - Fri</span>
-                      <span>9:00 AM - 6:00 PM</span>
-                    </div>
-                    <div className="flex justify-between font-lora text-gray-300 text-sm">
-                      <span>Weekend</span>
-                      <span>9:00 AM - 1:00 PM</span>
+                      <p className="font-lora text-gray-300 text-sm group-hover:text-white transition-colors">info@ceylonwildescapes.com</p>
                     </div>
                   </div>
                 </div>

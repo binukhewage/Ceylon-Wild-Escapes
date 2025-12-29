@@ -155,15 +155,17 @@ export default function BlogArticlePage() {
 
             {/* PROSE STYLING FIXED: Used backticks for multi-line string */}
             <div 
-              className={`prose prose-lg prose-invert max-w-none
-              prose-headings:font-bebas prose-headings:tracking-wide prose-headings:text-white
-              prose-p:font-lora prose-p:text-gray-300 prose-p:leading-relaxed
-              prose-a:text-[#4a7c59] prose-a:no-underline hover:prose-a:underline
-              prose-blockquote:border-l-[#4a7c59] prose-blockquote:bg-white/5 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:not-italic
-              prose-strong:text-white prose-strong:font-montserrat
-              prose-img:rounded-xl prose-img:shadow-xl prose-img:border prose-img:border-white/10`}
-              dangerouslySetInnerHTML={{ __html: blog.content }}
-            />
+  className={`prose prose-lg prose-invert max-w-none
+  prose-headings:font-bebas prose-headings:tracking-wide prose-headings:text-white
+  prose-p:font-lora prose-p:text-gray-300 prose-p:leading-relaxed
+  prose-p:text-justify prose-p:hyphens-auto
+  prose-a:text-[#4a7c59] prose-a:no-underline hover:prose-a:underline
+  prose-blockquote:border-l-[#4a7c59] prose-blockquote:bg-white/5 prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:not-italic
+  prose-strong:text-white prose-strong:font-montserrat
+  prose-img:rounded-xl prose-img:shadow-xl prose-img:border prose-img:border-white/10`}
+  dangerouslySetInnerHTML={{ __html: blog.content }}
+/>
+
 
             {/* Footer Share Section */}
             <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
