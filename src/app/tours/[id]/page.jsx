@@ -542,7 +542,7 @@ export default function TourDetails(props) {
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ delay: idx * 0.1 }}
                 viewport={{ once: true }}
-                className="relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer group border border-white/10 hover:border-[#4a7c59] shadow-lg"
+                className="relative aspect-[4/3] overflow-hidden cursor-pointer group border border-white/10 hover:border-[#4a7c59] shadow-lg"
                 onClick={() => openGalleryModal(img)}
               >
                 <Image

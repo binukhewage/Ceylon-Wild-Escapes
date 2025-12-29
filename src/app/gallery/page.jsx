@@ -28,7 +28,7 @@ const galleryItems = [
   { id: 3, src: "/images/l2.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },
   { id: 15, src: "/images/l10.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },
   { id: 17, src: "/images/wilpattucb.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },
-  { id: 19, src: "/images/", category: "Leopard", title: "Shadow Stalker", type: "color" },
+  { id: 19, src: "/images/pullip2.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },
   { id: 20, src: "/images/l7.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },
   { id: 21, src: "/images/l8.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },
   { id: 22, src: "/images/l9.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },

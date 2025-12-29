@@ -14,7 +14,7 @@ export const tours = [
     description: "A dedicated safari journey focused on tracking the elusive Sri Lankan Leopard across four key habitats Wilpattu, Kumana, Horton Plains, and Yala featuring ten expertly curated safaris designed to maximize sightings and immerse you in the wild heart of Ceylon.",
     
     heroImage: "/images/pullibanner.jpg",
-    overviewImage: "/images/l2.jpg",
+    overviewImage: "/images/pullioverview.jpg",
     routeimage: "/images/route.png",
     
     duration: "15 Days / 14 Nights",
@@ -23,18 +23,15 @@ export const tours = [
     
     images: [
       "/images/pullicard1.jpg", 
-      "/images/d1.jpg", 
-      "/images/a1.jpg", 
-      "/images/a3.jpg",
+      "/images/l3.jpg", 
+      "/images/pullip2.jpg", 
+      "/images/pullip3.jpg",
     ],
 
     galleryImages: [
       "/images/l1.jpg",
       "/images/l2.jpg",
-      "/images/l3.jpg",
-      "/images/l4.jpg",
-      "/images/l5.jpg",
-      "/images/l6.jpg",
+      "/images/wilpattucb.jpg",
     ],
 
     highlights: [
@@ -173,8 +170,8 @@ export const tours = [
     focus: "Endemic Bird Tracking, Lowland Rainforest, and Montane Ecosystems",
     description: "This expedition traverses the island's most critical bio-diversity hotspots, including Sinharaja (Rainforest), Kumana (Coastal Wetlands), Gal Oya (Reservoir & Dry Zone), Nilgala (Reservoir & Dry Zone) and Horton Plains (Montane Zone), ensuring exposure to a maximum number of Sri Lanka's endemic bird species.",
     
-    heroImage: "/images/hero12.jpg",
-    overviewImage: "/images/sinharaja-d.webp",
+    heroImage: "/images/kurulubanner.jpg",
+    overviewImage: "/images/kuruluoverview.jpg",
     routeimage: "/images/route01.png",
     duration: "15 Days / 14 Nights",
     price: "$5,499",
@@ -182,16 +179,15 @@ export const tours = [
     
     images: [
       "/images/kurulucard3.jpg",
-      "/images/sinharaja-d.webp",
-      "/images/kumana.jpg",
+      "/images/kurulup1.jpg",
+      "/images/kurulup2.jpg",
+      "/images/hp4.jpg",
     ],
     galleryImages: [
-      "/images/kumana.jpg",
-      "/images/hp-d.jpeg",
-      "/images/yala-d.jpg",
-      "/images/hp.jpg",
-      "/images/elewater.jpg",
-      "/images/we.jpg",
+      "/images/kurulu1.jpg",
+      "/images/kurulu2.jpg",
+      "/images/nil7.jpg",
+      
     ],
     highlights: [
       "Sinharaja Endemic Birds",
@@ -380,10 +376,8 @@ export const tours = [
     galleryImages: [
       "/images/urumaya1.jpg",
       "/images/urumaya2.jpg",
-      "/images/urumaya3.jpg",
       "/images/urumaya4.jpg",
-      "/images/urumaya5.jpg",
-      "/images/urumaya6.jpg",
+      
     ],
 
     highlights: [
@@ -579,7 +573,7 @@ export const tours = [
     description: "Named for the vital 'villu' (natural waterholes) of the dry zone, this exclusive escape charts a course from the ancient plains of the North to the misty peaks of the Central Highlands, concluding in the prehistoric Sinharaja Rainforest.",
     
     heroImage: "/images/nwt-b.jpg",
-    overviewImage: "/images/minneriya-d.jpg",
+    overviewImage: "/images/nothernoverview.jpg",
     routeimage: "/images/route03.png",
     duration: "14 Days / 13 Nights",
     price: "$5,999",
@@ -587,17 +581,15 @@ export const tours = [
     
     images: [
       "/images/notherncard2.jpg",
-      "/images/minneriya-d.jpg",
-      "/images/horton1.jpg",
+      "/images/nothernp1.jpg",
+      "/images/nothernp2.jpg",
+      "/images/nothernp3.jpg",
     ],
 
     galleryImages: [
-      "/images/urumaya1.jpg",
-      "/images/urumaya2.jpg",
-      "/images/urumaya3.jpg",
-      "/images/urumaya4.jpg",
-      "/images/urumaya5.jpg",
-      "/images/urumaya6.jpg",
+      "/images/nothernimage4.jpg",
+      "/images/nothernimage2.jpg",
+      "/images/nothern5.jpg",
     ],
 
     highlights: [
@@ -740,26 +732,24 @@ export const tours = [
     focus: "Leopard Photography, Remote Wetland Sanctuaries, and UNESCO Cloud Forests",
     description: "This immersive venture into the untamed wild takes you into the depth of the wilderness across Sri Lanka's three major life zones. Your expedition begins in the misty Montane Zone of Horton Plains, descends into the endemic-rich canopy of the Sinharaja Rainforest, and sweeps across the South and East to experience the famous leopard concentrations of Yala and the remote wetlands of Kumana.",
     
-    heroImage: "/images/kumana.jpg", 
-    overviewImage: "/images/yala.jpg",
+    heroImage: "/images/southernbanner3.jpg", 
+    overviewImage: "/images/southernp2.jpg",
     routeimage: "/images/route04.png",
     duration: "14 Days / 13 Nights",
     price: "$5,999",
     intro: "Experience Sri Lanka's southern wilderness with luxury comfort. From the misty heights of Horton Plains to the remote coastal wetlands of Kumana and the leopard-dense Yala.",
     
     images: [
-      "/images/southerncard.jpg", 
-      "/images/kumana1.jpg", 
-      "/images/yala.jpg"
+      "/images/southerncard01.jpg", 
+      "/images/southernp1.jpg", 
+      "/images/southernp4.jpg",
+      "/images/southernp3.jpg"
     ],
 
     galleryImages: [
-      "/images/urumaya1.jpg",
-      "/images/urumaya2.jpg",
-      "/images/urumaya3.jpg",
-      "/images/urumaya4.jpg",
-      "/images/urumaya5.jpg",
-      "/images/urumaya6.jpg",
+      "/images/southernimage1.jpg",
+      "/images/southernimage2.jpg",
+      "/images/southernimage3.jpg",
     ],
 
     highlights: [

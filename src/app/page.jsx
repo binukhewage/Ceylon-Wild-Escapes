@@ -55,7 +55,7 @@ const tours = [
     type: "Premium",
     title: "Pulli Trail",
     subtitle: "The Leopard Odyssey",
-    heroImage: "/images/wilpattu-dd.jpg",
+    heroImage: "/images/pullih.jpg",
     duration: "15 Days/14 Nights",
     price: "$5,999",
     intro: "Track Sri Lanka’s apex predator across its four major habitats.",
@@ -67,7 +67,7 @@ const tours = [
     type: "Signature",
     title: "Kurulu Trail",
     subtitle: "Avian Jewels of Ceylon",
-    heroImage: "/images/hero12.jpg",
+    heroImage: "/images/kuruluh.jpg",
     duration: "15 Days/14 Nights",
     price: "$5,499",
     intro: "A deep dive into Sri Lanka’s richest biodiversity hotspots.",
@@ -79,7 +79,7 @@ const tours = [
     type: "Heritage",
     title: "Urumaya Trail",
     subtitle: "Heritage & Habitat",
-    heroImage: "/images/urumayacard.jpg",
+    heroImage: "/images/urumayah.jpg",
     duration: " 15 Days/14 Nights",
     price: "$4,999",
     intro:
@@ -92,7 +92,7 @@ const tours = [
     type: "Luxury",
     title: "Northern Wild",
     subtitle: "Untamed North",
-    heroImage: "/images/nwt-b.jpg",
+    heroImage: "/images/nothernh.jpg",
     duration: "15 Days/14 Nights",
     price: "$5,999",
     intro: "Luxury wildlife expedition across Sri Lanka's top national parks.",
@@ -116,7 +116,7 @@ const tours = [
 const slides = [
   {
     id: 1,
-    src: "/videos/finalc.mp4",
+    src: "/videos/finalcwe.mp4",
     alt: "Sri Lankan leopard in the wild",
   },
 ];

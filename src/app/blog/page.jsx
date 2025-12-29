@@ -67,7 +67,7 @@ const BlogPage = () => {
         {/* Background */}
         <div className="absolute inset-0">
           <Image
-            src="/images/we.jpg" // Use a moody, atmospheric jungle image
+            src="/images/banner01.jpg" // Use a moody, atmospheric jungle image
             alt="Wild Journal"
             fill
             className="object-cover opacity-60"
