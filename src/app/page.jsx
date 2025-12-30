@@ -116,7 +116,7 @@ const tours = [
 const slides = [
   {
     id: 1,
-    src: "/videos/finalcwe.mp4",
+    src: "/videos/cwenew.mp4",
     alt: "Sri Lankan leopard in the wild",
   },
 ];
