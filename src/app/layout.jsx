@@ -25,14 +25,15 @@ export const metadata = {
   },
 
   description:
-    "Premium wildlife tours, safaris, and photography expeditions across Sri Lanka. Explore Yala, Wilpattu, Udawalawe, and more with expert guides.",
+    "Premium wildlife tours, safaris, and photography expeditions across Sri Lanka. Explore Yala, Wilpattu, Kumana, Minneriya and more with expert guides.",
 
   keywords: [
     "Sri Lanka wildlife tours",
     "Sri Lanka safari",
     "Yala safari",
-    "Wilpattu tour",
-    "Udawalawe safari",
+    "Wilpattu safari",
+    "Kumana safari",
+    "Minneriya safari",
     "wildlife photography tours",
     "birdwatching Sri Lanka",
     "nature tours Sri Lanka",

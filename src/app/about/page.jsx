@@ -108,7 +108,7 @@ const About = () => {
 
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/about-b1.jpg" // Ensure path is correct
+            src="/images/about1.jpg" // Ensure path is correct
             alt="Wildlife photography"
             fill
             className="object-cover opacity-60 bg-black/30"
@@ -210,7 +210,8 @@ const About = () => {
             <div className="lg:col-span-5 relative flex justify-center">
               <div className="relative h-[400px] w-[400px]">
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#4a7c59]/20 to-transparent rounded-full blur-3xl"></div>
-                <div className="absolute inset-4 rounded-full overflow-hidden border-2 border-white/10 grayscale hover:grayscale-0 transition-all duration-700 shadow-2xl">
+                {/* FIX: Added lg: prefix to grayscale. Now it is colored on mobile, and B&W on desktop until hovered. */}
+                <div className="absolute inset-4 rounded-full overflow-hidden border-2 border-white/10 lg:grayscale lg:hover:grayscale-0 transition-all duration-700 shadow-2xl">
                   <Image
                     src="/images/cwe.png"
                     alt="Story"

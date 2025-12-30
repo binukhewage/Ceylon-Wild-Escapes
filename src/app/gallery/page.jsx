@@ -25,7 +25,7 @@ const montserrat = Montserrat({
 const galleryItems = [
   // Leopards
   { id: 2, src: "/images/l1.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },
-  { id: 3, src: "/images/l2.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },
+  { id: 3, src: "/images/l4.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },
   { id: 15, src: "/images/l10.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },
   { id: 17, src: "/images/wilpattucb.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },
   { id: 19, src: "/images/pullip2.jpg", category: "Leopard", title: "Shadow Stalker", type: "color" },
@@ -50,7 +50,7 @@ const galleryItems = [
   { id: 46, src: "/images/a7.jpg", category: "Birds", title: "Vibrant Plumage", type: "color" },
   { id: 47, src: "/images/a4.jpg", category: "Birds", title: "Vibrant Plumage", type: "color" },
   { id: 48, src: "/images/a5.jpg", category: "Birds", title: "Vibrant Plumage", type: "color" },
-  { id: 49, src: "/images/a6.jpg", category: "Birds", title: "Vibrant Plumage", type: "color" },
+  { id: 49, src: "/images/a10.jpg", category: "Birds", title: "Vibrant Plumage", type: "color" },
   { id: 50, src: "/images/a8.jpg", category: "Birds", title: "Vibrant Plumage", type: "color" },
 
   // Reptiles 
@@ -74,7 +74,7 @@ const galleryItems = [
   { id: 31, src: "/images/d1.jpg", category: "Deer", title: "Graceful Leap", type: "color" },
   { id: 32, src: "/images/d4.jpg", category: "Deer", title: "Graceful Leap", type: "color" },
   { id: 33, src: "/images/d6.jpg", category: "Deer", title: "Graceful Leap", type: "color" },
-  { id: 34, src: "/images/d3.jpg", category: "Deer", title: "Graceful Leap", type: "color" },
+  { id: 34, src: "/images/d11.jpg", category: "Deer", title: "Graceful Leap", type: "color" },
   { id: 35, src: "/images/d9.jpg", category: "Deer", title: "Graceful Leap", type: "color" },
   { id: 36, src: "/images/d10.jpg", category: "Deer", title: "Graceful Leap", type: "color" },
 
@@ -102,40 +102,27 @@ const categories = [
 
 /**
  * SMART SHUFFLE ALGORITHM
- * Ensures that two items of the same category rarely appear next to each other.
  */
 const smartShuffle = (items) => {
-  // 1. Create a mutable pool of items
   const pool = [...items];
   const result = [];
   let lastCategory = null;
 
   while (pool.length > 0) {
-    // 2. Filter pool to find items that are DIFFERENT from the last category
     let validCandidates = pool.filter(item => item.category !== lastCategory);
-
-    // 3. Fallback: If no valid candidates exist (only one category left), 
-    //    we must use what remains in the pool.
     if (validCandidates.length === 0) {
       validCandidates = pool;
     }
-
-    // 4. Pick a random item from the valid candidates
     const randomIndex = Math.floor(Math.random() * validCandidates.length);
     const selectedItem = validCandidates[randomIndex];
-
-    // 5. Add to result and update logic
     result.push(selectedItem);
     lastCategory = selectedItem.category;
-
-    // 6. Remove the selected item from the main pool
     const poolIndex = pool.findIndex(i => i.id === selectedItem.id);
     pool.splice(poolIndex, 1);
   }
 
   return result;
 };
-
 
 const GalleryPage = () => {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -151,7 +138,6 @@ const GalleryPage = () => {
     if (!isMounted) return galleryItems; 
 
     if (activeCategory === "all") {
-      // Use the new smartShuffle here
       return smartShuffle(galleryItems);
     }
     if (activeCategory === "bnw") {
@@ -217,41 +203,45 @@ const GalleryPage = () => {
 
         <div className="max-w-7xl mx-auto">
           
-          {/* --- RESPONSIVE FILTER BAR --- */}
-          <motion.div 
-            className="mb-12 md:mb-16 sticky top-20 z-40 md:static"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-             <div className={`
-                flex overflow-x-auto items-center gap-3 px-4 pb-4 -mx-4 
-                md:mx-auto md:p-1.5 md:flex-wrap md:justify-center md:gap-2 md:w-max 
-                md:backdrop-blur-xl md:border md:border-white/10 md:rounded-full md:shadow-2xl
-                scrollbar-hide snap-x
-             `}>
-                {categories.map((cat) => (
-                  <button
-                    key={cat.id}
-                    onClick={() => setActiveCategory(cat.id)}
-                    className={`
-                      relative px-5 py-2 md:px-6 md:py-2.5 rounded-full text-[10px] md:text-[11px] 
-                      uppercase tracking-[0.2em] font-montserrat whitespace-nowrap transition-all duration-300 
-                      flex-shrink-0 snap-start border group
-                      ${
-                      activeCategory === cat.id
-                        ? "bg-[#4a7c59] text-white border-[#4a7c59] shadow-[0_0_20px_rgba(74,124,89,0.4)]"
-                        : "bg-black/80 backdrop-blur-md md:bg-transparent border-white/10 md:border-transparent text-gray-400 hover:text-white hover:bg-white/10"
-                    }`}
-                  >
-                    <span className="relative z-10">{cat.label}</span>
-                    {activeCategory === cat.id && (
-                       <motion.div layoutId="activePill" className="hidden md:block absolute inset-0 bg-[#4a7c59] rounded-full -z-0" />
-                    )}
-                  </button>
-                ))}
-             </div>
-          </motion.div>
+          {/* --- FIX: STABLE FILTER BAR FOR MOBILE --- */}
+          {/* 1. We use a plain <div> for the sticky behavior to avoid conflicts with Framer Motion transforms.
+             2. Added bg-black/90 + backdrop-blur for mobile so images don't bleed through the text when scrolling.
+          */}
+          <div className="sticky top-[60px] z-40 mb-8 md:static md:mb-16 -mx-4 px-4 py-3 bg-black/90 backdrop-blur-md md:bg-transparent md:backdrop-blur-none md:p-0 transition-all">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+               <div className={`
+                  flex overflow-x-auto items-center gap-3 pb-2 
+                  md:mx-auto md:p-1.5 md:flex-wrap md:justify-center md:gap-2 md:w-max 
+                  md:backdrop-blur-xl md:border md:border-white/10 md:rounded-full md:shadow-2xl
+                  scrollbar-hide snap-x touch-pan-x
+               `}>
+                  {categories.map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => setActiveCategory(cat.id)}
+                      className={`
+                        relative px-5 py-2 md:px-6 md:py-2.5 rounded-full text-[10px] md:text-[11px] 
+                        uppercase tracking-[0.2em] font-montserrat whitespace-nowrap transition-all duration-300 
+                        flex-shrink-0 snap-start border group
+                        ${
+                        activeCategory === cat.id
+                          ? "bg-[#4a7c59] text-white border-[#4a7c59] shadow-[0_0_20px_rgba(74,124,89,0.4)]"
+                          : "bg-white/5 md:bg-transparent border-white/10 md:border-transparent text-gray-400 hover:text-white hover:bg-white/10"
+                      }`}
+                    >
+                      <span className="relative z-10">{cat.label}</span>
+                      {activeCategory === cat.id && (
+                         <motion.div layoutId="activePill" className="hidden md:block absolute inset-0 bg-[#4a7c59] rounded-full -z-0" />
+                      )}
+                    </button>
+                  ))}
+               </div>
+            </motion.div>
+          </div>
 
           {/* --- DYNAMIC LAYOUT: MASONRY FOR 'ALL', GRID FOR OTHERS --- */}
           <div className={

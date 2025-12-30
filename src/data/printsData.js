@@ -20,7 +20,7 @@ const printsData = [
   size: "30x40 inches",
   medium: "Archival Fine Art Paper",
   category: "mammals",
-  image: "/images/prints06.png",
+  image: "/images/prints08.png",
 },
 
   {
