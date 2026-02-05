@@ -205,7 +205,7 @@ const Footer = () => {
           </p>
 
           <Link
-            href="https://rubion-chi.vercel.app/"
+            href="https://rubion.dev"
             className="font-montserrat text-[10px] text-gray-600 hover:text-white uppercase tracking-widest transition-colors"
           >
             Website by RUBION
